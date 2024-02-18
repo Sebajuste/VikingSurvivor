@@ -2,6 +2,7 @@ extends Node3D
 
 @export var first_level_path : String
 
+@onready var options = $OptionsWindow
 @onready var cutscene = $Cutscene
 #@onready var gui_animation = $CanvasLayer/AnimationPlayer
 
@@ -43,4 +44,14 @@ func _on_play_pressed():
 
 
 func _on_actor_character_player_damaged(_damage, _health):
+	pass # Replace with function body.
+
+
+func _on_options_pressed():
+	options.visible = true
+	pass # Replace with function body.
+
+
+func _on_options_window_close_requested():
+	options.visible = false
 	pass # Replace with function body.

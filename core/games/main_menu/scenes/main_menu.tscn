@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://dvickpr5s8o5c"]
+[gd_scene load_steps=24 format=3 uid="uid://dvickpr5s8o5c"]
 
 [ext_resource type="Script" path="res://core/games/main_menu/scripts/main_menu.gd" id="1_ekl7t"]
 [ext_resource type="PackedScene" uid="uid://bh5syuqkjy7cu" path="res://core/miscs/day_night_cycle/scenes/day_night_cycle.tscn" id="2_nmtd3"]
@@ -17,6 +17,7 @@
 [ext_resource type="AudioStream" uid="uid://cv8aj3gvhtbyr" path="res://assets/sounds/ocean_waves_crisp.wav" id="15_e6ik7"]
 [ext_resource type="Script" path="res://core/miscs/loaders/scripts/music_loader.gd" id="16_ivh46"]
 [ext_resource type="AudioStream" uid="uid://bqg4breypqoc0" path="res://assets/musics/menu.ogg" id="17_h5cha"]
+[ext_resource type="PackedScene" uid="uid://bhg6ek2wf3lsp" path="res://core/miscs/configuration/scenes/OptionsWindow.tscn" id="18_x708y"]
 
 [sub_resource type="Animation" id="Animation_op4u4"]
 resource_name = "idle"
@@ -207,7 +208,6 @@ first_level_path = "res://core/games/main_game/scenes/main_game.tscn"
 stream = ExtResource("15_e6ik7")
 volume_db = -30.0
 autoplay = true
-bus = &"effects"
 
 [node name="Drakkar" parent="." instance=ExtResource("3_6jbsl")]
 transform = Transform3D(0.999967, -0.00809418, -7.28476e-05, 0.00807946, 0.997519, 0.0699304, -0.000493362, -0.0699287, 0.997552, 0, 7, 0)
@@ -259,11 +259,9 @@ transform = Transform3D(0.196558, 3.93474, -0.301375, -0.140348, -0.576773, -1.9
 
 [node name="Thunder" type="AudioStreamPlayer" parent="Cutscene"]
 stream = ExtResource("12_sq8o2")
-bus = &"effects"
 
 [node name="DrakkarDamage" type="AudioStreamPlayer" parent="Cutscene"]
 stream = ExtResource("14_ivgsl")
-bus = &"effects"
 
 [node name="GUI" type="Control" parent="."]
 layout_mode = 3
@@ -315,7 +313,6 @@ layout_mode = 2
 text = "JOUER"
 
 [node name="Options" type="Button" parent="GUI/MarginContainer/VBoxContainer"]
-visible = false
 layout_mode = 2
 text = "OPTIONS"
 
@@ -327,8 +324,14 @@ text = "QUITTER"
 script = ExtResource("16_ivh46")
 music = ExtResource("17_h5cha")
 
+[node name="OptionsWindow" parent="." instance=ExtResource("18_x708y")]
+visible = false
+always_on_top = true
+
 [connection signal="damaged" from="ActorCharacterPlayer" to="." method="_on_actor_character_player_damaged"]
 [connection signal="pressed" from="GUI/MarginContainer/VBoxContainer/Play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="GUI/MarginContainer/VBoxContainer/Options" to="." method="_on_options_pressed"]
 [connection signal="pressed" from="GUI/MarginContainer/VBoxContainer/Quit" to="." method="_on_quit_pressed"]
+[connection signal="close_requested" from="OptionsWindow" to="." method="_on_options_window_close_requested"]
 
 [editable path="DayNightCycle"]

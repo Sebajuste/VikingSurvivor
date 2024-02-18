@@ -1,0 +1,71 @@
+[gd_scene load_steps=2 format=3 uid="uid://dancbf7gafg1r"]
+
+[ext_resource type="Script" path="res://core/miscs/configuration/scenes/OptionsAudio.gd" id="1"]
+
+[node name="OptionsAudio" type="VBoxContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme_override_constants/separation = 10
+script = ExtResource("1")
+
+[node name="Master" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Master"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+text = "label_general"
+
+[node name="Slider" type="HSlider" parent="Master"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+tick_count = 10
+ticks_on_borders = true
+
+[node name="Music" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Music"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+text = "label_music"
+
+[node name="Slider" type="HSlider" parent="Music"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+tick_count = 10
+ticks_on_borders = true
+
+[node name="SoundEffects" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="SoundEffects"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+text = "label_sound_effects"
+
+[node name="Slider" type="HSlider" parent="SoundEffects"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+tick_count = 10
+ticks_on_borders = true
+
+[node name="Mute" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Mute"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+
+[node name="Checkbox" type="CheckBox" parent="Mute"]
+layout_mode = 2
+text = "label_mute"
+
+[connection signal="value_changed" from="Master/Slider" to="." method="_on_General_value_changed"]
+[connection signal="value_changed" from="Music/Slider" to="." method="_on_Music_value_changed"]
+[connection signal="value_changed" from="SoundEffects/Slider" to="." method="_on_Effects_value_changed"]
+[connection signal="toggled" from="Mute/Checkbox" to="." method="_on_Mute_toggled"]

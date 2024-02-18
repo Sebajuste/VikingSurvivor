@@ -399,7 +399,6 @@ void fragment() {
 
 }
 "
-graph_offset = Vector2(-809.229, -327.772)
 varyings/height = "0,0"
 varyings/_time_scale = "0,0"
 varyings/world_pos = "0,4"

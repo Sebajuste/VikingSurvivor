@@ -12,6 +12,7 @@ var _last_position := 0.0
 
 func _ready():
 	_audio_stream_player.autoplay = true
+	_audio_stream_player.bus = "Music"
 	add_child(_audio_stream_player)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

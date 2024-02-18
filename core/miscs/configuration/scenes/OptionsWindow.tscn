@@ -1,0 +1,97 @@
+[gd_scene load_steps=5 format=3 uid="uid://bhg6ek2wf3lsp"]
+
+[ext_resource type="PackedScene" uid="uid://dancbf7gafg1r" path="res://core/miscs/configuration/scenes/OptionsAudio.tscn" id="1"]
+[ext_resource type="PackedScene" uid="uid://bkbw2jqr1eg7" path="res://core/miscs/configuration/scenes/OptionsVideo.tscn" id="2"]
+[ext_resource type="Script" path="res://core/miscs/configuration/scenes/OptionsWindow.gd" id="4"]
+[ext_resource type="Theme" uid="uid://b8j47gvu61s0d" path="res://assets/themes/default.tres" id="5"]
+
+[node name="OptionsWindow" type="Window"]
+initial_position = 1
+size = Vector2i(800, 600)
+script = ExtResource("4")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="TabContainer" type="TabContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Display" type="Control" parent="MarginContainer/VBoxContainer/TabContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/TabContainer/Display"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
+
+[node name="OptionsVideo" parent="MarginContainer/VBoxContainer/TabContainer/Display/MarginContainer" instance=ExtResource("2")]
+layout_mode = 2
+
+[node name="Sound" type="Control" parent="MarginContainer/VBoxContainer/TabContainer"]
+visible = false
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/TabContainer/Sound"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
+
+[node name="OptionsAudio" parent="MarginContainer/VBoxContainer/TabContainer/Sound/MarginContainer" instance=ExtResource("1")]
+layout_mode = 2
+
+[node name="Footer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("5")
+alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/Footer"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="RestoreDefaultButton" type="Button" parent="MarginContainer/VBoxContainer/Footer/HBoxContainer"]
+layout_mode = 2
+text = "btn_default"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/VBoxContainer/Footer"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="SaveButton" type="Button" parent="MarginContainer/VBoxContainer/Footer/HBoxContainer2"]
+layout_mode = 2
+text = "btn_save"
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="MarginContainer/VBoxContainer/Footer"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="CloseButton" type="Button" parent="MarginContainer/VBoxContainer/Footer/HBoxContainer3"]
+layout_mode = 2
+text = "btn_close"
+
+[connection signal="pressed" from="MarginContainer/VBoxContainer/Footer/HBoxContainer/RestoreDefaultButton" to="." method="_on_RestoreDefaultButton_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/Footer/HBoxContainer2/SaveButton" to="." method="_on_SaveButton_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/Footer/HBoxContainer3/CloseButton" to="." method="_on_CloseButton_pressed"]

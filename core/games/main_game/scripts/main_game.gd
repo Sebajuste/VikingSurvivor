@@ -9,6 +9,7 @@ extends Node3D
 @onready var gui_inventory = $GUI/GUIInventoryList
 @onready var gui_endgame = $GUI/EndGame
 @onready var gui_menu = $GUI/Menu
+@onready var gui_options = $GUI/OptionsWindow
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -56,11 +57,20 @@ func _on_work_shop_built():
 func _on_player_died():
 	gui_endgame.visible = true
 	gui_menu.visible = false
+	gui_options.visible = false
 	pass # Replace with function body.
 
 func _on_close_pressed():
 	gui_menu.visible = false
+	gui_options.visible = false
 	pass # Replace with function body.
+
+
+func _on_button_pressed():
+	gui_menu.visible = false
+	gui_options.visible = true
+	pass # Replace with function body.
+
 
 func _on_back_menu_pressed():
 	LevelLoader.thread_load("res://core/games/main_menu/scenes/main_menu.tscn")
@@ -79,4 +89,5 @@ func _on_quitter_button_pressed():
 	# LevelLoader.thread_load("res://core/games/main_menu/scenes/main_menu.tscn")
 	# gui_endgame.visible = false
 	pass # Replace with function body.
+
 

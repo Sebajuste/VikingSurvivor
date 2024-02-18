@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://brtt0b0i378an"]
+[gd_scene load_steps=26 format=3 uid="uid://brtt0b0i378an"]
 
 [ext_resource type="Script" path="res://core/games/main_game/scripts/main_game.gd" id="1_0mn5b"]
 [ext_resource type="PackedScene" uid="uid://vxdruttjm3kg" path="res://core/levels/island/scenes/island.tscn" id="1_4br7n"]
@@ -17,6 +17,7 @@
 [ext_resource type="PackedScene" uid="uid://bnpbxs21jgofd" path="res://core/miscs/weather/scenes/snow.tscn" id="10_2ohc1"]
 [ext_resource type="Curve" uid="uid://cj85ta1rymfsq" path="res://core/miscs/weather_control/resources/day_night_curve.tres" id="11_63ey7"]
 [ext_resource type="Script" path="res://core/miscs/loaders/scripts/music_loader.gd" id="16_jkccb"]
+[ext_resource type="PackedScene" uid="uid://bhg6ek2wf3lsp" path="res://core/miscs/configuration/scenes/OptionsWindow.tscn" id="18_3y0a3"]
 [ext_resource type="PackedScene" uid="uid://cghy2e36xb4ta" path="res://core/effects/scenes/ice_screen.tscn" id="18_fbp3r"]
 [ext_resource type="AudioStream" uid="uid://cg48y2dfqu7w8" path="res://assets/musics/main.ogg" id="19_l63a7"]
 
@@ -221,21 +222,28 @@ custom_minimum_size = Vector2(120, 0)
 layout_mode = 2
 text = "Retour au jeu"
 
-[node name="BackMenu" type="Button" parent="GUI/Menu/VBoxContainer/Control/VBoxContainer"]
-custom_minimum_size = Vector2(120, 0)
+[node name="Button" type="Button" parent="GUI/Menu/VBoxContainer/Control/VBoxContainer"]
 layout_mode = 2
-text = "Menu principal"
+text = "Options"
 
 [node name="RestartButton" type="Button" parent="GUI/Menu/VBoxContainer/Control/VBoxContainer"]
 custom_minimum_size = Vector2(120, 0)
 layout_mode = 2
 text = "Recommencer"
 
+[node name="BackMenu" type="Button" parent="GUI/Menu/VBoxContainer/Control/VBoxContainer"]
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+text = "Menu principal"
+
 [node name="QuitterButton" type="Button" parent="GUI/Menu/VBoxContainer/Control/VBoxContainer"]
 custom_minimum_size = Vector2(120, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Quitter"
+
+[node name="OptionsWindow" parent="GUI" instance=ExtResource("18_3y0a3")]
+visible = false
 
 [node name="MusicLoader" type="Node" parent="."]
 script = ExtResource("16_jkccb")
@@ -246,6 +254,8 @@ music = ExtResource("19_l63a7")
 [connection signal="pressed" from="GUI/EndGame/VBoxContainer/Control/HBoxContainer2/QuitterButton" to="." method="_on_quitter_button_pressed"]
 [connection signal="pressed" from="GUI/EndGame/VBoxContainer/Control/HBoxContainer2/RestartButton" to="." method="_on_restart_button_pressed"]
 [connection signal="pressed" from="GUI/Menu/VBoxContainer/Control/VBoxContainer/Close" to="." method="_on_back_menu_pressed"]
-[connection signal="pressed" from="GUI/Menu/VBoxContainer/Control/VBoxContainer/BackMenu" to="." method="_on_back_menu_pressed"]
+[connection signal="pressed" from="GUI/Menu/VBoxContainer/Control/VBoxContainer/Button" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="GUI/Menu/VBoxContainer/Control/VBoxContainer/RestartButton" to="." method="_on_restart_button_pressed"]
+[connection signal="pressed" from="GUI/Menu/VBoxContainer/Control/VBoxContainer/BackMenu" to="." method="_on_back_menu_pressed"]
 [connection signal="pressed" from="GUI/Menu/VBoxContainer/Control/VBoxContainer/QuitterButton" to="." method="_on_quitter_button_pressed"]
+[connection signal="close_requested" from="GUI/OptionsWindow" to="." method="_on_close_pressed"]
