@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://dmw5s56q0sdqg"]
+
+[ext_resource type="PackedScene" uid="uid://caqxfqurbp3ku" path="res://addons/proton_scatter/demos/assets/pine_tree.tscn" id="1_txd3j"]
+
+[node name="Pine01" type="Node3D"]
+
+[node name="pine_tree" parent="." instance=ExtResource("1_txd3j")]

@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="Recipe" load_steps=7 format=3 uid="uid://27jyxnngc234"]
+
+[ext_resource type="Resource" uid="uid://ctb6qygvnrsl8" path="res://data/items/log.tres" id="1_n4cbw"]
+[ext_resource type="Script" path="res://core/actors/workshop/scripts/recipe_item.gd" id="2_t2kqn"]
+[ext_resource type="Resource" uid="uid://br0jfc65uabml" path="res://data/items/stone.tres" id="3_yqc22"]
+[ext_resource type="Script" path="res://core/actors/workshop/scripts/recipe.gd" id="4_0bcf0"]
+
+[sub_resource type="Resource" id="Resource_bfiqr"]
+script = ExtResource("2_t2kqn")
+item = ExtResource("1_n4cbw")
+quantity = 3
+
+[sub_resource type="Resource" id="Resource_gytxi"]
+script = ExtResource("2_t2kqn")
+item = ExtResource("3_yqc22")
+quantity = 5
+
+[resource]
+script = ExtResource("4_0bcf0")
+inputs = Array[ExtResource("2_t2kqn")]([SubResource("Resource_bfiqr"), SubResource("Resource_gytxi")])
+outputs = Array[ExtResource("2_t2kqn")]([])

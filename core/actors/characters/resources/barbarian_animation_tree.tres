@@ -1,0 +1,55 @@
+[gd_resource type="AnimationNodeStateMachine" load_steps=13 format=3 uid="uid://csrdfqpvfexkq"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_8req1"]
+animation = &"Death_B"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_gyqim"]
+animation = &"Idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_o868t"]
+animation = &"Walking_A"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_hhq7w"]
+animation = &"Running_A"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_mctmt"]
+animation = &"Walking_Backwards"
+
+[sub_resource type="AnimationNodeBlendSpace1D" id="AnimationNodeBlendSpace1D_0a6vs"]
+blend_point_0/node = SubResource("AnimationNodeAnimation_gyqim")
+blend_point_0/pos = 0.0
+blend_point_1/node = SubResource("AnimationNodeAnimation_o868t")
+blend_point_1/pos = 0.5
+blend_point_2/node = SubResource("AnimationNodeAnimation_hhq7w")
+blend_point_2/pos = 1.0
+blend_point_3/node = SubResource("AnimationNodeAnimation_mctmt")
+blend_point_3/pos = -0.5
+
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_wlrvi"]
+graph_offset = Vector2(-268, -16)
+nodes/Normal/node = SubResource("AnimationNodeBlendSpace1D_0a6vs")
+nodes/Normal/position = Vector2(-60, 120)
+node_connections = [&"output", 0, &"Normal"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_dj7le"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_1pwl0"]
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_3uiue"]
+states/Locomotion/node = SubResource("AnimationNodeBlendTree_wlrvi")
+states/Locomotion/position = Vector2(449, 100)
+transitions = ["Start", "Locomotion", SubResource("AnimationNodeStateMachineTransition_dj7le"), "Locomotion", "End", SubResource("AnimationNodeStateMachineTransition_1pwl0")]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_yypgw"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_kd6pe"]
+
+[resource]
+states/Death/node = SubResource("AnimationNodeAnimation_8req1")
+states/Death/position = Vector2(444, -19)
+states/WalkAndRun/node = SubResource("AnimationNodeStateMachine_3uiue")
+states/WalkAndRun/position = Vector2(403, 100)
+transitions = ["Start", "WalkAndRun", SubResource("AnimationNodeStateMachineTransition_yypgw"), "WalkAndRun", "Death", SubResource("AnimationNodeStateMachineTransition_kd6pe")]
+graph_offset = Vector2(15, -66)

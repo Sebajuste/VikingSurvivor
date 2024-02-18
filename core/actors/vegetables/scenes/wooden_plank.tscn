@@ -1,0 +1,5 @@
+[gd_scene load_steps=2 format=3 uid="uid://coqj846v0p78u"]
+
+[ext_resource type="PackedScene" uid="uid://s5rjauq0xh6w" path="res://assets/3d/wooden_plank/scene.gltf" id="1_h553t"]
+
+[node name="WoodenPlank" instance=ExtResource("1_h553t")]

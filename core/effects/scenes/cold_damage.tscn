@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://dm868nnps2ipr"]
+
+[ext_resource type="Material" uid="uid://d0rcmqot7h7aj" path="res://core/effects/resources/cold_damage.material" id="1_k187w"]
+[ext_resource type="Material" uid="uid://xdgo43rfsv6o" path="res://core/effects/resources/particle_cold_damage.material" id="2_lwdyp"]
+
+[sub_resource type="QuadMesh" id="QuadMesh_xqcph"]
+size = Vector2(0.5, 0.5)
+
+[node name="ColdDamage" type="GPUParticles3D"]
+material_override = ExtResource("1_k187w")
+emitting = false
+amount = 16
+one_shot = true
+explosiveness = 0.89
+process_material = ExtResource("2_lwdyp")
+draw_pass_1 = SubResource("QuadMesh_xqcph")

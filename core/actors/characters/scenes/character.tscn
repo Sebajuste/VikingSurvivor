@@ -1,0 +1,109 @@
+[gd_scene load_steps=19 format=3 uid="uid://1pryhg1dyfuw"]
+
+[ext_resource type="Script" path="res://core/actors/characters/scripts/character.gd" id="1_grfpw"]
+[ext_resource type="Script" path="res://addons/state_machine/scripts/state_machine.gd" id="1_mbjil"]
+[ext_resource type="Script" path="res://core/actors/characters/scripts/skin.gd" id="2_g4adx"]
+[ext_resource type="Script" path="res://addons/state_machine/scripts/state.gd" id="2_gfvif"]
+[ext_resource type="PackedScene" uid="uid://daetslgk0a1cs" path="res://core/miscs/damage/scenes/hit_box.tscn" id="3_ceskq"]
+[ext_resource type="Script" path="res://core/actors/characters/scripts/detection_area.gd" id="4_q4cna"]
+[ext_resource type="Script" path="res://core/actors/characters/scripts/locomotion.gd" id="4_rgjvp"]
+[ext_resource type="Script" path="res://core/actors/characters/scripts/usable_detection.gd" id="5_uxqh3"]
+[ext_resource type="PackedScene" uid="uid://bnq2f48esssn3" path="res://core/miscs/damage/scenes/damage_stats.tscn" id="6_016px"]
+[ext_resource type="PackedScene" uid="uid://kcy7pjdq8l7h" path="res://core/miscs/weather_control/scenes/weather_probe.tscn" id="6_yxcry"]
+[ext_resource type="Script" path="res://core/actors/characters/scripts/locomotion_idle.gd" id="7_nc4fi"]
+[ext_resource type="Script" path="res://core/actors/characters/scripts/locomotion_move.gd" id="8_skljr"]
+[ext_resource type="Script" path="res://core/actors/characters/scripts/locomotion_death.gd" id="9_wu3fr"]
+[ext_resource type="Script" path="res://addons/inventory/src/scripts/inventory_list.gd" id="12_854th"]
+[ext_resource type="Script" path="res://core/actors/characters/scripts/control_player.gd" id="12_i0avy"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_gq80b"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_uowgp"]
+radius = 10.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_gwprf"]
+radius = 2.08026
+
+[node name="ActorCharacter" type="CharacterBody3D"]
+collision_layer = 2
+collision_mask = 3
+script = ExtResource("1_grfpw")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_gq80b")
+
+[node name="Skin" type="Node3D" parent="."]
+script = ExtResource("2_g4adx")
+
+[node name="HitBox" parent="." instance=ExtResource("3_ceskq")]
+damage_stats_path = NodePath("../DamageStats")
+
+[node name="DetectionArea" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("4_q4cna")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DetectionArea"]
+shape = SubResource("SphereShape3D_uowgp")
+
+[node name="UsableDetection" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 12
+input_ray_pickable = false
+monitorable = false
+script = ExtResource("5_uxqh3")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="UsableDetection"]
+shape = SubResource("SphereShape3D_gwprf")
+
+[node name="WeatherProbe" parent="." instance=ExtResource("6_yxcry")]
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+
+[node name="LocomotionSM" type="Node" parent="."]
+script = ExtResource("1_mbjil")
+initial_state = NodePath("Locomotion/Idle")
+
+[node name="Locomotion" type="Node" parent="LocomotionSM"]
+script = ExtResource("4_rgjvp")
+
+[node name="Idle" type="Node" parent="LocomotionSM/Locomotion"]
+script = ExtResource("7_nc4fi")
+
+[node name="Move" type="Node" parent="LocomotionSM/Locomotion"]
+script = ExtResource("8_skljr")
+
+[node name="Death" type="Node" parent="LocomotionSM/Locomotion"]
+script = ExtResource("9_wu3fr")
+
+[node name="ControlSM" type="Node" parent="."]
+script = ExtResource("1_mbjil")
+initial_state = NodePath("None")
+
+[node name="None" type="Node" parent="ControlSM"]
+script = ExtResource("2_gfvif")
+
+[node name="AI" type="Node" parent="ControlSM"]
+script = ExtResource("2_gfvif")
+
+[node name="Player" type="Node" parent="ControlSM"]
+script = ExtResource("12_i0avy")
+
+[node name="Actions" type="Node" parent="."]
+
+[node name="Effects" type="Node" parent="."]
+
+[node name="DamageStats" parent="." instance=ExtResource("6_016px")]
+
+[node name="Inventory" type="Node" parent="."]
+script = ExtResource("12_854th")
+
+[node name="WalkSound" type="AudioStreamPlayer3D" parent="."]
+bus = &"effects"
+
+[connection signal="body_entered" from="DetectionArea" to="DetectionArea" method="_on_body_entered"]
+[connection signal="body_exited" from="DetectionArea" to="DetectionArea" method="_on_body_exited"]
+[connection signal="area_entered" from="UsableDetection" to="UsableDetection" method="_on_area_entered"]
+[connection signal="area_exited" from="UsableDetection" to="UsableDetection" method="_on_area_exited"]
+[connection signal="damaged" from="DamageStats" to="." method="_on_damage_stats_damaged"]
+[connection signal="health_depleted" from="DamageStats" to="." method="_on_damage_stats_health_depleted"]

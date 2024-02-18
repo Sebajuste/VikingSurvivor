@@ -1,0 +1,119 @@
+[gd_scene load_steps=23 format=3 uid="uid://c1rs0dcr1e6eb"]
+
+[ext_resource type="PackedScene" uid="uid://co61hh3h6lbgb" path="res://assets/3d/campfire/scene.gltf" id="1_e5kan"]
+[ext_resource type="Script" path="res://core/actors/items/scripts/campfire.gd" id="1_j2r8v"]
+[ext_resource type="PackedScene" uid="uid://n8ins3kmeo7e" path="res://core/miscs/weather_control/scenes/weather_modifier.tscn" id="3_6jw08"]
+[ext_resource type="Material" uid="uid://6iglk3lfoc36" path="res://core/actors/items/resources/fire.material" id="3_wwq3j"]
+[ext_resource type="Shader" uid="uid://bg6fn00agygac" path="res://core/actors/items/resources/fire.tres" id="4_45v07"]
+[ext_resource type="Material" uid="uid://ld6fm2ty0rj2" path="res://core/actors/items/resources/firebase_particle.material" id="4_wjh6a"]
+[ext_resource type="Material" uid="uid://w6d5y62u7pym" path="res://core/actors/items/resources/fireparticle_particle.material" id="5_dg0m1"]
+[ext_resource type="Material" uid="uid://ijnbgiwh5f7f" path="res://core/actors/items/resources/smoke.material" id="5_rjo02"]
+[ext_resource type="Material" uid="uid://b6g0qrvtulk8q" path="res://core/actors/items/resources/fire_particle.material" id="5_wsaga"]
+[ext_resource type="Material" uid="uid://c50mmh8w7knf8" path="res://core/actors/items/resources/smoke_particle.material" id="6_6fn5j"]
+[ext_resource type="Texture2D" uid="uid://cq01q36juwim2" path="res://assets/2d/textures/sfx/light_blob.png" id="6_pyc8x"]
+[ext_resource type="AudioStream" uid="uid://dtcmdwdqlfhlh" path="res://assets/sounds/campfire.ogg" id="11_ypx2g"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_1wrog"]
+radius = 7.0
+
+[sub_resource type="Curve" id="Curve_j2m80"]
+_data = [Vector2(0, 1), 3.20028, -7.24717e-07, 0, 0, Vector2(0.498694, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="QuadMesh" id="QuadMesh_wk4pc"]
+
+[sub_resource type="QuadMesh" id="QuadMesh_cub8k"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_tjmwr"]
+frequency = 0.0368
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_wkmj5"]
+noise = SubResource("FastNoiseLite_tjmwr")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_b0e6c"]
+render_priority = 0
+shader = ExtResource("4_45v07")
+shader_parameter/DissolveTilling = Vector2(0.5, 0.25)
+shader_parameter/DissolveSpeed = Vector2(0, 0.2)
+shader_parameter/Dissolve = 0.442
+shader_parameter/AlphaFilter = 0.402
+shader_parameter/FireTexture = ExtResource("6_pyc8x")
+shader_parameter/DissolveTexture = SubResource("NoiseTexture2D_wkmj5")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_unxdj"]
+emission_shape = 1
+emission_sphere_radius = 0.6
+gravity = Vector3(0, 4, 0)
+scale_min = 0.01
+scale_max = 0.12
+color = Color(1, 0.286275, 0.0431373, 1)
+turbulence_enabled = true
+turbulence_noise_strength = 2.0
+turbulence_noise_scale = 5.0
+turbulence_influence_min = 0.05
+turbulence_influence_max = 0.3
+
+[sub_resource type="QuadMesh" id="QuadMesh_561ud"]
+
+[sub_resource type="QuadMesh" id="QuadMesh_vniu3"]
+
+[node name="Campfire" type="Node3D"]
+script = ExtResource("1_j2r8v")
+
+[node name="Skin" type="Node3D" parent="."]
+
+[node name="Sketchfab_Scene" parent="Skin" instance=ExtResource("1_e5kan")]
+
+[node name="Effects" type="Node3D" parent="."]
+
+[node name="WeatherModifier" parent="Effects" instance=ExtResource("3_6jw08")]
+shape = SubResource("SphereShape3D_1wrog")
+enabled = false
+temperature = 10.0
+temperature_distance = SubResource("Curve_j2m80")
+
+[node name="FireBase" type="GPUParticles3D" parent="Effects"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.404414, 0)
+layers = 2
+material_override = ExtResource("3_wwq3j")
+amount = 2
+process_material = ExtResource("4_wjh6a")
+draw_pass_1 = SubResource("QuadMesh_wk4pc")
+
+[node name="FireParticle" type="GPUParticles3D" parent="Effects"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.399688, 0)
+layers = 2
+material_override = ExtResource("5_wsaga")
+amount = 20
+process_material = ExtResource("5_dg0m1")
+draw_pass_1 = SubResource("QuadMesh_cub8k")
+
+[node name="Floating" type="GPUParticles3D" parent="Effects"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.255681, 0)
+layers = 2
+sorting_offset = 1.0
+material_override = SubResource("ShaderMaterial_b0e6c")
+amount = 50
+lifetime = 2.0
+process_material = SubResource("ParticleProcessMaterial_unxdj")
+draw_pass_1 = SubResource("QuadMesh_561ud")
+
+[node name="Smoke" type="GPUParticles3D" parent="Effects"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.710983, 0)
+layers = 2
+material_override = ExtResource("5_rjo02")
+amount = 20
+lifetime = 2.5
+process_material = ExtResource("6_6fn5j")
+draw_pass_1 = SubResource("QuadMesh_vniu3")
+
+[node name="Light" type="OmniLight3D" parent="Effects"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.373798, 0)
+light_color = Color(1, 0.839216, 0.635294, 1)
+light_energy = 15.0
+light_cull_mask = 4294967293
+shadow_enabled = true
+omni_range = 7.0
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="Effects"]
+stream = ExtResource("11_ypx2g")

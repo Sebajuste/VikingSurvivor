@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="GameItem" load_steps=3 format=3 uid="uid://ctb6qygvnrsl8"]
+
+[ext_resource type="Script" path="res://addons/inventory/src/game_item.gd" id="1_u812u"]
+[ext_resource type="PackedScene" uid="uid://dfnm2oqocyy1u" path="res://core/actors/vegetables/scenes/log.tscn" id="1_wirk5"]
+
+[resource]
+script = ExtResource("1_u812u")
+name = "Bois"
+object_type = "material"
+max_stack = 10
+quantity = 1
+properties = {}
+model = ExtResource("1_wirk5")

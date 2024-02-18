@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://cqoim1l1n74j5"]
+
+[ext_resource type="PackedScene" uid="uid://bugwhqqjl7a1g" path="res://core/actors/workshop/scenes/firecamp_build.tscn" id="1_fj3sh"]
+[ext_resource type="PackedScene" uid="uid://d8phxsu1psbf" path="res://core/actors/workshop/scenes/workbench_build.tscn" id="2_lajh6"]
+
+[node name="BuildLocation" type="Marker3D"]
+
+[node name="BuildTemplateFireCamp" parent="." instance=ExtResource("1_fj3sh")]
+
+[node name="BuildTemplateWorkbench" parent="." instance=ExtResource("2_lajh6")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, -3.19933)

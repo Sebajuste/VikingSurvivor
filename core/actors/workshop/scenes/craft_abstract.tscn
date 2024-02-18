@@ -1,0 +1,53 @@
+[gd_scene load_steps=8 format=3 uid="uid://dxvjeh5fqo1r7"]
+
+[ext_resource type="Script" path="res://addons/inventory/src/scripts/inventory_list.gd" id="1_qeetx"]
+[ext_resource type="Script" path="res://core/actors/workshop/scripts/abstract_builder.gd" id="1_u3iyo"]
+[ext_resource type="PackedScene" uid="uid://dyov53d862ro7" path="res://core/actors/workshop/gui/gui_progress.tscn" id="1_v2i2b"]
+[ext_resource type="PackedScene" uid="uid://bbg2yy2s1p07k" path="res://core/actors/workshop/gui/gui_recipe_requirements.tscn" id="3_q0ybi"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_nh35e"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_raqjw"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_1befj"]
+radius = 2.0
+
+[node name="CraftAbstract" type="Marker3D"]
+script = ExtResource("1_u3iyo")
+shape = SubResource("SphereShape3D_nh35e")
+
+[node name="Area3D" type="Area3D" parent="."]
+collision_layer = 12
+collision_mask = 0
+monitoring = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("SphereShape3D_raqjw")
+
+[node name="PlayerDetection" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PlayerDetection"]
+shape = SubResource("SphereShape3D_1befj")
+
+[node name="Skin" type="Node3D" parent="."]
+
+[node name="GUIProgress" parent="." instance=ExtResource("1_v2i2b")]
+visible = false
+
+[node name="GUIRecipeRequirements" parent="." node_paths=PackedStringArray("craft") instance=ExtResource("3_q0ybi")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+visible = false
+craft = NodePath("..")
+
+[node name="InventoryList" type="Node" parent="."]
+script = ExtResource("1_qeetx")
+
+[node name="Timer" type="Timer" parent="."]
+
+[connection signal="body_entered" from="PlayerDetection" to="." method="_on_player_detection_body_entered"]
+[connection signal="body_exited" from="PlayerDetection" to="." method="_on_player_detection_body_exited"]
+[connection signal="changed" from="InventoryList" to="." method="_on_inventory_list_changed"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

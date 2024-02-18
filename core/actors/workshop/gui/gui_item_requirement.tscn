@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://dr25rtk5o540p"]
+
+[ext_resource type="PackedScene" uid="uid://c7u0oqb1kws5g" path="res://core/gui/icons/scenes/item_icon.tscn" id="1_1gt8h"]
+[ext_resource type="Script" path="res://core/actors/workshop/scripts/gui_item_requirement.gd" id="1_q4bde"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_xc1mu"]
+font_size = 24
+
+[node name="GUIItemRequirement" type="VBoxContainer"]
+offset_right = 53.0
+offset_bottom = 88.0
+script = ExtResource("1_q4bde")
+
+[node name="ItemIcon" parent="." instance=ExtResource("1_1gt8h")]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 2
+text = "x/y"
+label_settings = SubResource("LabelSettings_xc1mu")
+horizontal_alignment = 1

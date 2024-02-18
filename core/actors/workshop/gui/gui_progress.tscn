@@ -1,0 +1,46 @@
+[gd_scene load_steps=6 format=3 uid="uid://dyov53d862ro7"]
+
+[ext_resource type="Script" path="res://core/actors/workshop/scripts/gui_loading.gd" id="1_gptfw"]
+[ext_resource type="Script" path="res://core/actors/workshop/scripts/gui_progress.gd" id="1_xgnw3"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_wi0xn"]
+viewport_path = NodePath("Texture/SubViewport")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jvnbo"]
+resource_local_to_scene = true
+transparency = 1
+no_depth_test = true
+shading_mode = 0
+albedo_texture = SubResource("ViewportTexture_wi0xn")
+billboard_mode = 1
+fixed_size = true
+
+[sub_resource type="QuadMesh" id="QuadMesh_rwj1k"]
+size = Vector2(0.25, 0.25)
+
+[node name="GUIProgress" type="Node3D"]
+script = ExtResource("1_xgnw3")
+radius = 20
+width = 15
+color = Color(0.286275, 0.560784, 0.423529, 1)
+
+[node name="Texture" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+material_override = SubResource("StandardMaterial3D_jvnbo")
+mesh = SubResource("QuadMesh_rwj1k")
+
+[node name="SubViewport" type="SubViewport" parent="Texture"]
+disable_3d = true
+transparent_bg = true
+size = Vector2i(128, 128)
+
+[node name="GUILoading" type="Control" parent="Texture/SubViewport"]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_gptfw")

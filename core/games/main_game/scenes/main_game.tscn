@@ -1,0 +1,251 @@
+[gd_scene load_steps=25 format=3 uid="uid://brtt0b0i378an"]
+
+[ext_resource type="Script" path="res://core/games/main_game/scripts/main_game.gd" id="1_0mn5b"]
+[ext_resource type="PackedScene" uid="uid://vxdruttjm3kg" path="res://core/levels/island/scenes/island.tscn" id="1_4br7n"]
+[ext_resource type="PackedScene" uid="uid://j6566m1k03xg" path="res://core/actors/characters/scenes/actor_character_player.tscn" id="2_jqq7n"]
+[ext_resource type="Script" path="res://core/games/main_game/scripts/water_sound.gd" id="2_l7vwq"]
+[ext_resource type="PackedScene" uid="uid://dj6ki6fw1q6yo" path="res://core/miscs/camera_rig/scenes/camera_rig.tscn" id="3_akpf2"]
+[ext_resource type="AudioStream" uid="uid://cv8aj3gvhtbyr" path="res://assets/sounds/ocean_waves_crisp.wav" id="3_nb2i1"]
+[ext_resource type="PackedScene" uid="uid://cg1yr1630i8r5" path="res://core/actors/workshop/scenes/workshop.tscn" id="5_s4281"]
+[ext_resource type="Resource" uid="uid://bhcfb1t2xv5uk" path="res://data/recipes/recipe_repair_drakkar.tres" id="6_52877"]
+[ext_resource type="PackedScene" uid="uid://bh5syuqkjy7cu" path="res://core/miscs/day_night_cycle/scenes/day_night_cycle.tscn" id="6_sgs0p"]
+[ext_resource type="PackedScene" uid="uid://wbe0p2ihsw3s" path="res://core/actors/characters/scenes/controller_character.tscn" id="7_1vsoc"]
+[ext_resource type="PackedScene" uid="uid://cqtd17afj0s44" path="res://core/miscs/weather_control/scenes/weather_control.tscn" id="8_5xnml"]
+[ext_resource type="PackedScene" uid="uid://dm868nnps2ipr" path="res://core/effects/scenes/cold_damage.tscn" id="8_xnvny"]
+[ext_resource type="PackedScene" uid="uid://bf77txe6s0t6r" path="res://core/miscs/weather/scenes/rain.tscn" id="9_bbvsk"]
+[ext_resource type="PackedScene" uid="uid://6eqvkqfipckm" path="res://core/gui/scenes/inventory_list.tscn" id="9_dh7t8"]
+[ext_resource type="PackedScene" uid="uid://bnpbxs21jgofd" path="res://core/miscs/weather/scenes/snow.tscn" id="10_2ohc1"]
+[ext_resource type="Curve" uid="uid://cj85ta1rymfsq" path="res://core/miscs/weather_control/resources/day_night_curve.tres" id="11_63ey7"]
+[ext_resource type="Script" path="res://core/miscs/loaders/scripts/music_loader.gd" id="16_jkccb"]
+[ext_resource type="PackedScene" uid="uid://cghy2e36xb4ta" path="res://core/effects/scenes/ice_screen.tscn" id="18_fbp3r"]
+[ext_resource type="AudioStream" uid="uid://cg48y2dfqu7w8" path="res://assets/musics/main.ogg" id="19_l63a7"]
+
+[sub_resource type="Curve" id="Curve_ndr4c"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.569682, 0), 0.0, 0.0, 0, 0, Vector2(0.848411, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_x1ukd"]
+radius = 10.0
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_iefne"]
+sky_top_color = Color(0.617978, 0.734347, 0.901322, 1)
+sky_horizon_color = Color(0.746358, 0.67374, 0.701332, 1)
+ground_bottom_color = Color(0.617978, 0.734347, 0.901322, 1)
+ground_horizon_color = Color(0.746358, 0.67374, 0.701332, 1)
+
+[sub_resource type="Sky" id="Sky_p7vcr"]
+sky_material = SubResource("ProceduralSkyMaterial_iefne")
+
+[sub_resource type="Environment" id="Environment_c7j0d"]
+background_mode = 2
+sky = SubResource("Sky_p7vcr")
+ssao_enabled = true
+ssil_enabled = true
+sdfgi_enabled = true
+glow_enabled = true
+glow_bloom = 0.2
+glow_blend_mode = 1
+volumetric_fog_albedo = Color(0.617978, 0.734347, 0.901322, 1)
+volumetric_fog_gi_inject = 1.23
+volumetric_fog_length = 3.0
+adjustment_enabled = true
+adjustment_saturation = 1.2
+
+[node name="MainGame" type="Node3D"]
+script = ExtResource("1_0mn5b")
+
+[node name="Island" parent="." instance=ExtResource("1_4br7n")]
+
+[node name="Center" type="Marker3D" parent="Island" node_paths=PackedStringArray("target")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 512, 7, 512)
+script = ExtResource("2_l7vwq")
+curve = SubResource("Curve_ndr4c")
+target = NodePath("../../Player")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Island/Center"]
+stream = ExtResource("3_nb2i1")
+autoplay = true
+
+[node name="DrakkarRepair" parent="." instance=ExtResource("5_s4281")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 900.604, 8.28176, 360.026)
+shape = SubResource("SphereShape3D_x1ukd")
+build_recipe = ExtResource("6_52877")
+build_time = 20
+
+[node name="Player" parent="." instance=ExtResource("2_jqq7n")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 897.393, 8.71811, 358.24)
+
+[node name="ColdDamage" parent="Player" instance=ExtResource("8_xnvny")]
+one_shot = false
+
+[node name="StartPoint" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 897.393, 8.49116, 358.24)
+
+[node name="CameraRig" parent="." instance=ExtResource("3_akpf2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 897.393, 15.7555, 352.221)
+mode = "TopView"
+target_path = NodePath("../Player")
+top_view_view_offset = Vector3(0, 7, -5)
+
+[node name="DayNightCycle" parent="." node_paths=PackedStringArray("environment") instance=ExtResource("6_sgs0p")]
+environment = NodePath("../WorldEnvironment")
+day_length = 300.0
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_c7j0d")
+
+[node name="WeatherControl" parent="." node_paths=PackedStringArray("environement", "daynight_cycle") instance=ExtResource("8_5xnml")]
+environement = NodePath("../WorldEnvironment")
+daynight_cycle = NodePath("../DayNightCycle")
+rain_effect = ExtResource("9_bbvsk")
+snow_effect = ExtResource("10_2ohc1")
+temperature_day_nighy_curve = ExtResource("11_63ey7")
+
+[node name="ControllerCharacter" parent="." node_paths=PackedStringArray("character") instance=ExtResource("7_1vsoc")]
+character = NodePath("../Player")
+
+[node name="IceScreen" parent="." instance=ExtResource("18_fbp3r")]
+distortion = 0.5
+
+[node name="GUI" type="CanvasLayer" parent="."]
+layer = 2
+
+[node name="GUIInventoryList" parent="GUI" instance=ExtResource("9_dh7t8")]
+
+[node name="EndGame" type="MarginContainer" parent="GUI"]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -157.0
+offset_top = -90.5
+offset_right = 157.0
+offset_bottom = 90.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="GUI/EndGame"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GUI/EndGame"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="GUI/EndGame/VBoxContainer"]
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+text = "Fin de Partie"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Control" type="Control" parent="GUI/EndGame/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="GUI/EndGame/VBoxContainer/Control"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -91.0
+offset_top = -35.5
+offset_right = 91.0
+offset_bottom = 35.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 3
+
+[node name="QuitterButton" type="Button" parent="GUI/EndGame/VBoxContainer/Control/HBoxContainer2"]
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Quitter"
+
+[node name="RestartButton" type="Button" parent="GUI/EndGame/VBoxContainer/Control/HBoxContainer2"]
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+text = "Recommencer"
+
+[node name="Menu" type="MarginContainer" parent="GUI"]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -173.0
+offset_top = -170.0
+offset_right = 173.0
+offset_bottom = 170.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 0
+
+[node name="Panel" type="Panel" parent="GUI/Menu"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GUI/Menu"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="GUI/Menu/VBoxContainer"]
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+text = "Fin de Partie"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Control" type="Control" parent="GUI/Menu/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GUI/Menu/VBoxContainer/Control"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -91.0
+offset_top = -35.5
+offset_right = 91.0
+offset_bottom = 35.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 3
+
+[node name="Close" type="Button" parent="GUI/Menu/VBoxContainer/Control/VBoxContainer"]
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+text = "Retour au jeu"
+
+[node name="BackMenu" type="Button" parent="GUI/Menu/VBoxContainer/Control/VBoxContainer"]
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+text = "Menu principal"
+
+[node name="RestartButton" type="Button" parent="GUI/Menu/VBoxContainer/Control/VBoxContainer"]
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+text = "Recommencer"
+
+[node name="QuitterButton" type="Button" parent="GUI/Menu/VBoxContainer/Control/VBoxContainer"]
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Quitter"
+
+[node name="MusicLoader" type="Node" parent="."]
+script = ExtResource("16_jkccb")
+music = ExtResource("19_l63a7")
+
+[connection signal="built" from="DrakkarRepair" to="." method="_on_work_shop_built"]
+[connection signal="died" from="Player" to="." method="_on_player_died"]
+[connection signal="pressed" from="GUI/EndGame/VBoxContainer/Control/HBoxContainer2/QuitterButton" to="." method="_on_quitter_button_pressed"]
+[connection signal="pressed" from="GUI/EndGame/VBoxContainer/Control/HBoxContainer2/RestartButton" to="." method="_on_restart_button_pressed"]
+[connection signal="pressed" from="GUI/Menu/VBoxContainer/Control/VBoxContainer/Close" to="." method="_on_back_menu_pressed"]
+[connection signal="pressed" from="GUI/Menu/VBoxContainer/Control/VBoxContainer/BackMenu" to="." method="_on_back_menu_pressed"]
+[connection signal="pressed" from="GUI/Menu/VBoxContainer/Control/VBoxContainer/RestartButton" to="." method="_on_restart_button_pressed"]
+[connection signal="pressed" from="GUI/Menu/VBoxContainer/Control/VBoxContainer/QuitterButton" to="." method="_on_quitter_button_pressed"]

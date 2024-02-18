@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="GameItem" load_steps=3 format=3 uid="uid://br0jfc65uabml"]
+
+[ext_resource type="PackedScene" uid="uid://bltmr2xgs8nq1" path="res://addons/proton_scatter/demos/assets/small_rock.tscn" id="1_8mw7f"]
+[ext_resource type="Script" path="res://addons/inventory/src/game_item.gd" id="2_mve7m"]
+
+[resource]
+script = ExtResource("2_mve7m")
+name = "Pierre"
+object_type = "material"
+max_stack = 10
+quantity = 1
+properties = {}
+model = ExtResource("1_8mw7f")

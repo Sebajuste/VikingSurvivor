@@ -1,0 +1,13 @@
+[gd_scene load_steps=4 format=3 uid="uid://lyk88u5hp5yl"]
+
+[ext_resource type="PackedScene" uid="uid://cg1yr1630i8r5" path="res://core/actors/workshop/scenes/workshop.tscn" id="1_6dwpe"]
+[ext_resource type="PackedScene" uid="uid://dd20n0731ykmc" path="res://assets/3d/workbench/scene.gltf" id="2_iayef"]
+[ext_resource type="Resource" uid="uid://ck8evh2aoj8sp" path="res://data/recipes/recipe_plank.tres" id="3_xgjur"]
+
+[node name="WorkshopWorkbench" type="Node3D"]
+
+[node name="Workshop" parent="." instance=ExtResource("1_6dwpe")]
+build_auto = true
+model = ExtResource("2_iayef")
+model_position_offset = Vector3(-3, 0, 1)
+build_recipe = ExtResource("3_xgjur")

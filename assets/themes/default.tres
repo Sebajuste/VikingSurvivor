@@ -1,0 +1,8 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://b8j47gvu61s0d"]
+
+[ext_resource type="FontFile" uid="uid://cq1oq6iw7cyw2" path="res://assets/fonts/viking_middle_runes.ttf" id="1_dpw4r"]
+
+[resource]
+default_base_scale = 1.0
+default_font = ExtResource("1_dpw4r")
+default_font_size = 32

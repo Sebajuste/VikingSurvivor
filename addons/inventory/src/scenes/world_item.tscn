@@ -1,0 +1,24 @@
+[gd_scene load_steps=5 format=3 uid="uid://b6uqpi4suxb6s"]
+
+[ext_resource type="Script" path="res://addons/inventory/src/scripts/world_item.gd" id="1_m1ac3"]
+[ext_resource type="Script" path="res://addons/inventory/src/scripts/inventory_list.gd" id="2_8880m"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_opi5i"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_71tcd"]
+size = Vector3(0.5, 0.5, 0.5)
+
+[node name="WorldItem" type="Marker3D" groups=["item_pickable"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.15, 0.25, -2.365)
+script = ExtResource("1_m1ac3")
+shape = SubResource("SphereShape3D_opi5i")
+
+[node name="Area3D" type="Area3D" parent="."]
+collision_layer = 12
+collision_mask = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("BoxShape3D_71tcd")
+
+[node name="InventoryList" type="Node" parent="."]
+script = ExtResource("2_8880m")

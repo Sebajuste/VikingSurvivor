@@ -1,0 +1,44 @@
+[gd_scene load_steps=8 format=3 uid="uid://j6566m1k03xg"]
+
+[ext_resource type="PackedScene" uid="uid://1pryhg1dyfuw" path="res://core/actors/characters/scenes/character.tscn" id="1_ghdiw"]
+[ext_resource type="PackedScene" uid="uid://b48hsfluceik3" path="res://core/actors/characters/scenes/skin_barbarian.tscn" id="2_5pjlh"]
+[ext_resource type="Script" path="res://core/actors/characters/scripts/skin_humanoid.gd" id="2_nv76g"]
+[ext_resource type="Script" path="res://core/actors/characters/scripts/weather_effect.gd" id="4_3y1dn"]
+[ext_resource type="AudioStream" uid="uid://d3ee2ql0vqvo5" path="res://assets/sounds/walk.wav" id="4_42w24"]
+[ext_resource type="PackedScene" uid="uid://qmotavgh7r51" path="res://core/effects/scenes/breath.tscn" id="4_i1gsh"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_vljt8"]
+height = 1.8
+
+[node name="ActorCharacterPlayer" instance=ExtResource("1_ghdiw")]
+move_speed_run = 4.0
+
+[node name="CollisionShape3D" parent="." index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_vljt8")
+
+[node name="Skin" parent="." index="1"]
+script = ExtResource("2_nv76g")
+
+[node name="Humanoid" parent="Skin" index="0" instance=ExtResource("2_5pjlh")]
+transform = Transform3D(-0.8, 0, -6.99382e-08, 0, 0.8, 0, 6.99382e-08, 0, -0.8, 0, 0, 0)
+
+[node name="Breath" parent="." index="7" instance=ExtResource("4_i1gsh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1103, -0.398665)
+emitting = false
+
+[node name="WeatherEffect" type="Node" parent="Effects" index="0"]
+script = ExtResource("4_3y1dn")
+temperature_breath_threshold = 1.0
+
+[node name="ColdDamageTimer" type="Timer" parent="Effects/WeatherEffect" index="0"]
+
+[node name="DamageStats" parent="." index="12"]
+max_health = 50
+
+[node name="WalkSound" parent="." index="14"]
+stream = ExtResource("4_42w24")
+volume_db = -10.0
+
+[connection signal="timeout" from="Effects/WeatherEffect/ColdDamageTimer" to="Effects/WeatherEffect" method="_on_timer_timeout"]
+[connection signal="health_depleted" from="DamageStats" to="Effects/WeatherEffect" method="_on_damage_stats_health_depleted"]

@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://dwckm8runs1w4"]
+
+[ext_resource type="PackedScene" uid="uid://dd20n0731ykmc" path="res://assets/3d/workbench/scene.gltf" id="1_f5sjp"]
+[ext_resource type="Material" uid="uid://dbq6l2kmc8f6q" path="res://core/actors/items/resources/build_template.material" id="2_k12yj"]
+
+[node name="Sketchfab_Scene" instance=ExtResource("1_f5sjp")]
+
+[node name="Object_2" parent="Sketchfab_model/c77fffa58b704773a0eaf690de94050b_obj_cleaner_materialmerger_gles" index="0"]
+material_override = ExtResource("2_k12yj")

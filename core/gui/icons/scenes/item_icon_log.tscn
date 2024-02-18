@@ -1,0 +1,14 @@
+[gd_scene load_steps=4 format=3 uid="uid://jg2id681nghy"]
+
+[ext_resource type="PackedScene" uid="uid://c7u0oqb1kws5g" path="res://core/gui/icons/scenes/item_icon.tscn" id="1_0sdbu"]
+[ext_resource type="PackedScene" uid="uid://dfnm2oqocyy1u" path="res://core/actors/vegetables/scenes/log.tscn" id="2_w32rm"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_8hfir"]
+viewport_path = NodePath("IconWiewver")
+
+[node name="ItemIconLog" instance=ExtResource("1_0sdbu")]
+item_scene = ExtResource("2_w32rm")
+item_offset = Vector3(-0.05, 0, 0)
+
+[node name="TextureRect" parent="." index="0"]
+texture = SubResource("ViewportTexture_8hfir")

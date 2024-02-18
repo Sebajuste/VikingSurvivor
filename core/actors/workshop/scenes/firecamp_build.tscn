@@ -1,0 +1,16 @@
+[gd_scene load_steps=6 format=3 uid="uid://bugwhqqjl7a1g"]
+
+[ext_resource type="PackedScene" uid="uid://dgeqewdhg0j2m" path="res://core/actors/workshop/scenes/build.tscn" id="1_mpcbo"]
+[ext_resource type="PackedScene" uid="uid://dy4q8ab8udg72" path="res://core/actors/workshop/scenes/firecamp_workshop.tscn" id="2_jsf68"]
+[ext_resource type="PackedScene" uid="uid://bruye5w4van4c" path="res://core/actors/items/scenes/campfire_template.tscn" id="3_w04uq"]
+[ext_resource type="Resource" uid="uid://27jyxnngc234" path="res://data/recipes/recipe_campfire.tres" id="4_cmotj"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_0rl15"]
+
+[node name="BuildTemplateFireCamp" type="Node3D"]
+
+[node name="BuilderTemplate" parent="." instance=ExtResource("1_mpcbo")]
+build_model = ExtResource("2_jsf68")
+shape = SubResource("SphereShape3D_0rl15")
+model = ExtResource("3_w04uq")
+build_recipe = ExtResource("4_cmotj")

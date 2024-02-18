@@ -1,0 +1,44 @@
+[gd_scene load_steps=2 format=3 uid="uid://4gg8sv72yj8r"]
+
+[ext_resource type="Script" path="res://core/miscs/inventory/gui/inventory_slot.gd" id="1_bv8xy"]
+
+[node name="InventorySlot" type="Panel"]
+custom_minimum_size = Vector2(64, 64)
+anchors_preset = -1
+anchor_right = 0.056
+anchor_bottom = 0.099
+offset_right = -0.512001
+offset_bottom = -0.152008
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_bv8xy")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer"]
+layout_mode = 2
+expand_mode = 1
+
+[node name="Quantity" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -23.0
+grow_horizontal = 0
+grow_vertical = 0
+horizontal_alignment = 1
+vertical_alignment = 1

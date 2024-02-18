@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="Recipe" load_steps=5 format=3 uid="uid://c0uijd4ulievv"]
+
+[ext_resource type="Script" path="res://core/actors/workshop/scripts/recipe.gd" id="1_i3udx"]
+[ext_resource type="Resource" uid="uid://ctb6qygvnrsl8" path="res://data/items/log.tres" id="1_rlsmx"]
+[ext_resource type="Script" path="res://core/actors/workshop/scripts/recipe_item.gd" id="2_bkm8d"]
+
+[sub_resource type="Resource" id="Resource_vabdx"]
+script = ExtResource("2_bkm8d")
+item = ExtResource("1_rlsmx")
+quantity = 5
+
+[resource]
+script = ExtResource("1_i3udx")
+inputs = Array[ExtResource("2_bkm8d")]([SubResource("Resource_vabdx")])
+outputs = Array[ExtResource("2_bkm8d")]([])

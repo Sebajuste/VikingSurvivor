@@ -1,0 +1,11 @@
+Model Information:
+* title:	workbench
+* source:	https://sketchfab.com/3d-models/workbench-b43527005e6b4ae1b3e83663688a7531
+* author:	JonhGillessen (https://sketchfab.com/JonhGillessen)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "workbench" (https://sketchfab.com/3d-models/workbench-b43527005e6b4ae1b3e83663688a7531) by JonhGillessen (https://sketchfab.com/JonhGillessen) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

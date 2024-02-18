@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://ddtftmoup2hr5"]
+
+[ext_resource type="Script" path="res://core/miscs/damage/scripts/damage_source.gd" id="1_irno5"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_7dlpu"]
+
+[node name="DamageSource" type="Area3D"]
+collision_layer = 0
+collision_mask = 4
+input_ray_pickable = false
+script = ExtResource("1_irno5")
+damage = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_7dlpu")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]

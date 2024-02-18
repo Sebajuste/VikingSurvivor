@@ -1,0 +1,32 @@
+[gd_scene load_steps=6 format=3 uid="uid://dj6ki6fw1q6yo"]
+
+[ext_resource type="Script" path="res://core/miscs/camera_rig/scripts/camera_rig.gd" id="1_r7ln7"]
+[ext_resource type="Script" path="res://addons/state_machine/scripts/state_machine.gd" id="2_ugxaj"]
+[ext_resource type="Script" path="res://core/miscs/camera_rig/scripts/TPS.gd" id="3_jsjay"]
+[ext_resource type="Script" path="res://addons/state_machine/scripts/state.gd" id="3_wv23h"]
+[ext_resource type="Script" path="res://core/miscs/camera_rig/scripts/TopView.gd" id="5_42k4k"]
+
+[node name="CameraRig" type="SpringArm3D"]
+spring_length = 2.5
+script = ExtResource("1_r7ln7")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+current = true
+
+[node name="ReflectionProbe" type="ReflectionProbe" parent="Camera3D"]
+
+[node name="RayCast3D" type="RayCast3D" parent="Camera3D/ReflectionProbe"]
+
+[node name="StateMachine" type="Node" parent="."]
+script = ExtResource("2_ugxaj")
+initial_state = NodePath("FPS")
+
+[node name="TPS" type="Node" parent="StateMachine"]
+script = ExtResource("3_jsjay")
+camera_vertical_offset = 1.5
+
+[node name="FPS" type="Node" parent="StateMachine"]
+script = ExtResource("3_wv23h")
+
+[node name="TopView" type="Node" parent="StateMachine"]
+script = ExtResource("5_42k4k")

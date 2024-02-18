@@ -1,0 +1,46 @@
+[remap]
+
+importer="scene"
+importer_version=1
+type="PackedScene"
+uid="uid://k1ay1yhotuk5"
+path="res://.godot/imported/scene.gltf-55b5403f304699222ebdd9100fc59845.scn"
+
+[deps]
+
+source_file="res://assets/3d/pine_tree/scene.gltf"
+dest_files=["res://.godot/imported/scene.gltf-55b5403f304699222ebdd9100fc59845.scn"]
+
+[params]
+
+nodes/root_type=""
+nodes/root_name=""
+nodes/apply_root_scale=false
+nodes/root_scale=0.1
+meshes/ensure_tangents=true
+meshes/generate_lods=true
+meshes/create_shadow_meshes=true
+meshes/light_baking=1
+meshes/lightmap_texel_size=0.2
+meshes/force_disable_compression=false
+skins/use_named_skins=true
+animation/import=true
+animation/fps=30
+animation/trimming=false
+animation/remove_immutable_tracks=true
+import_script/path=""
+_subresources={
+"materials": {
+"Leavs": {
+"use_external/enabled": true,
+"use_external/path": "res://assets/3d/pine_tree/leavs.material"
+}
+},
+"nodes": {
+"PATH:Sketchfab_model/4ae49a7eb2b34ec88b7dd664e89d6dd8_fbx/RootNode/Trank_001/Trank_001_Trank_0": {
+"generate/physics": true
+}
+}
+}
+gltf/naming_version=1
+gltf/embedded_image_handling=1

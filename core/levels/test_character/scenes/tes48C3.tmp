@@ -1,0 +1,67 @@
+[gd_scene load_steps=14 format=3 uid="uid://ckcluyqakbrnk"]
+
+[ext_resource type="Material" uid="uid://cbh7d5mmbr1jc" path="res://assets/2d/textures/prototype/Dark/texture_01.material" id="1_5c32w"]
+[ext_resource type="Script" path="res://core/levels/test_character/scripts/test_character.gd" id="1_gk0mk"]
+[ext_resource type="Material" uid="uid://r7i6k07ewoo2" path="res://assets/2d/textures/prototype/Red/texture_02.material" id="2_35bmi"]
+[ext_resource type="Environment" uid="uid://brd2qldg4r5mr" path="res://core/effects/resources/we_default.tres" id="2_a5wi0"]
+[ext_resource type="PackedScene" uid="uid://bh5syuqkjy7cu" path="res://core/miscs/day_night_cycle/scenes/day_night_cycle.tscn" id="3_qkmfl"]
+[ext_resource type="PackedScene" uid="uid://j6566m1k03xg" path="res://core/actors/characters/scenes/actor_character_player.tscn" id="4_nwdyq"]
+[ext_resource type="PackedScene" uid="uid://cq3suak5lba4c" path="res://core/actors/lights/lamp01/scenes/lamp_01.tscn" id="5_bmu6k"]
+[ext_resource type="PackedScene" uid="uid://wbe0p2ihsw3s" path="res://core/actors/characters/scenes/controller_character.tscn" id="8_8jdbp"]
+[ext_resource type="PackedScene" uid="uid://dj6ki6fw1q6yo" path="res://core/miscs/camera_rig/scenes/camera_rig.tscn" id="8_v265y"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_8ir6w"]
+size = Vector3(100, 1, 100)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_mr5se"]
+size = Vector3(100, 1, 100)
+
+[sub_resource type="BoxMesh" id="BoxMesh_by3xa"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_wf4vu"]
+
+[node name="TestCharacter" type="Node3D"]
+script = ExtResource("1_gk0mk")
+
+[node name="Ground" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+material_override = ExtResource("1_5c32w")
+mesh = SubResource("BoxMesh_8ir6w")
+
+[node name="GPUParticlesCollisionBox3D" type="GPUParticlesCollisionBox3D" parent="Ground"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4.5, 0)
+size = Vector3(100, 10, 100)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Ground"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground/StaticBody3D"]
+shape = SubResource("BoxShape3D_mr5se")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.72922, 0.5, 0)
+material_override = ExtResource("2_35bmi")
+mesh = SubResource("BoxMesh_by3xa")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/StaticBody3D"]
+shape = SubResource("BoxShape3D_wf4vu")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = ExtResource("2_a5wi0")
+
+[node name="DayNightCycle" parent="." node_paths=PackedStringArray("environment") instance=ExtResource("3_qkmfl")]
+environment = NodePath("../WorldEnvironment")
+start_time = 0.3
+
+[node name="ActorCharacterPlayer" parent="." instance=ExtResource("4_nwdyq")]
+
+[node name="Lamp01" parent="." instance=ExtResource("5_bmu6k")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.61966, 0, 2.8699)
+
+[node name="ControllerCharacter" parent="." instance=ExtResource("8_8jdbp")]
+
+[node name="CameraRig" parent="." instance=ExtResource("8_v265y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.94668, 3.29182)
+mode = "TPS"
+target_path = NodePath("../ActorCharacterPlayer")

@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://cq3suak5lba4c"]
+
+[ext_resource type="PackedScene" uid="uid://dubnud5tu76d1" path="res://assets/3d/free-environment-props-3d-low-poly-models/FBX/Lamp_1.tscn" id="1_hmud5"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ggbu6"]
+size = Vector3(0.723755, 3.69414, 0.699768)
+
+[node name="Lamp01" type="StaticBody3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00921631, 1.8346, 0.00961304)
+shape = SubResource("BoxShape3D_ggbu6")
+
+[node name="Lamp_1" parent="." instance=ExtResource("1_hmud5")]
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.68572, 1.11691)
+light_color = Color(1, 0.917647, 0.756863, 1)
+light_energy = 2.0
+shadow_enabled = true
+omni_range = 8.0

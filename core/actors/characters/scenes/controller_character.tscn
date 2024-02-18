@@ -1,0 +1,19 @@
+[gd_scene load_steps=5 format=3 uid="uid://wbe0p2ihsw3s"]
+
+[ext_resource type="Script" path="res://core/actors/characters/scripts/controller_character.gd" id="1_5sijc"]
+[ext_resource type="Script" path="res://addons/state_machine/scripts/state_machine.gd" id="2_r4w1a"]
+[ext_resource type="Script" path="res://core/actors/characters/scripts/controller_character_control_character.gd" id="4_72yl6"]
+[ext_resource type="Script" path="res://addons/state_machine/scripts/state.gd" id="4_uutf5"]
+
+[node name="ControllerCharacter" type="Node"]
+script = ExtResource("1_5sijc")
+
+[node name="ControlSM" type="Node" parent="."]
+script = ExtResource("2_r4w1a")
+initial_state = NodePath("Control/Character")
+
+[node name="Control" type="Node" parent="ControlSM"]
+script = ExtResource("4_uutf5")
+
+[node name="Character" type="Node" parent="ControlSM/Control"]
+script = ExtResource("4_72yl6")

@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://bruye5w4van4c"]
+
+[ext_resource type="PackedScene" uid="uid://co61hh3h6lbgb" path="res://assets/3d/campfire/scene.gltf" id="1_toyuq"]
+[ext_resource type="Material" uid="uid://dbq6l2kmc8f6q" path="res://core/actors/items/resources/build_template.material" id="2_d1wkm"]
+
+[node name="CampfireBuildTemplate" instance=ExtResource("1_toyuq")]
+
+[node name="Cylinder_0" parent="Sketchfab_model/root/GLTF_SceneRootNode" index="0"]
+visible = false
+
+[node name="Object_6" parent="Sketchfab_model/root/GLTF_SceneRootNode/Cylinder_003_1" index="0"]
+material_override = ExtResource("2_d1wkm")
+
+[node name="Object_8" parent="Sketchfab_model/root/GLTF_SceneRootNode/Cube_004_2" index="0"]
+material_override = ExtResource("2_d1wkm")

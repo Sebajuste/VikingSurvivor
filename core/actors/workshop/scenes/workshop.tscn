@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://cg1yr1630i8r5"]
+
+[ext_resource type="Script" path="res://core/actors/workshop/scripts/workshop.gd" id="1_i7gj0"]
+[ext_resource type="PackedScene" uid="uid://dxvjeh5fqo1r7" path="res://core/actors/workshop/scenes/craft_abstract.tscn" id="1_ongim"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_nh35e"]
+
+[node name="WorkShop" instance=ExtResource("1_ongim")]
+script = ExtResource("1_i7gj0")
+running_visual = null
+build_auto = false
+
+[node name="CollisionShape3D" parent="Area3D" index="0"]
+shape = SubResource("SphereShape3D_nh35e")
+
+[node name="RunningEffect" type="Node3D" parent="." index="3"]
+visible = false
+
+[node name="GUIRecipeRequirements" parent="." index="5"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.814927, 0)
+
+[node name="Timer" parent="." index="7"]
+wait_time = 10.0

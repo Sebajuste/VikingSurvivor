@@ -1,0 +1,43 @@
+[gd_scene load_steps=8 format=3 uid="uid://bh5syuqkjy7cu"]
+
+[ext_resource type="Script" path="res://core/miscs/day_night_cycle/scripts/day_night_cycle.gd" id="1_vsvgy"]
+[ext_resource type="Gradient" uid="uid://kitwfsjwrbvr" path="res://core/miscs/day_night_cycle/resources/top_color.tres" id="2_la10t"]
+[ext_resource type="Gradient" uid="uid://bbimyo37loxj5" path="res://core/miscs/day_night_cycle/resources/horizon_color.tres" id="3_wkvp0"]
+
+[sub_resource type="Gradient" id="Gradient_81llc"]
+offsets = PackedFloat32Array(0, 0.257971, 0.773913, 1)
+colors = PackedColorArray(0.843137, 0.631373, 0.360784, 1, 1, 0.967673, 0.960164, 1, 1, 0.986189, 0.944757, 1, 0.843137, 0.631373, 0.360784, 1)
+
+[sub_resource type="Curve" id="Curve_oau1d"]
+_data = [Vector2(0.207756, 0), 0.0, 0.0, 0, 0, Vector2(0.285319, 1), 0.0, 0.0, 0, 0, Vector2(0.720222, 1), 0.0, 0.0, 0, 0, Vector2(0.825485, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="Gradient" id="Gradient_jlsar"]
+offsets = PackedFloat32Array(0, 0.327327, 0.711712, 1)
+colors = PackedColorArray(0.4, 0.372549, 0.67451, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.4, 0.372549, 0.67451, 1)
+
+[sub_resource type="Curve" id="Curve_2grcc"]
+_data = [Vector2(0, 0.265339), 0.0, 0.0, 0, 0, Vector2(0.277008, 0), 0.0, 0.0, 0, 0, Vector2(0.747922, 0), 0.0, 0.0, 0, 0, Vector2(1, 0.237352), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[node name="DayNightCycle" type="Node3D"]
+script = ExtResource("1_vsvgy")
+sky_top_color = ExtResource("2_la10t")
+sky_horizon_color = ExtResource("3_wkvp0")
+sun_color = SubResource("Gradient_81llc")
+sun_intensity = SubResource("Curve_oau1d")
+moon_color = SubResource("Gradient_jlsar")
+moon_intensity = SubResource("Curve_2grcc")
+
+[node name="Sun" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0.309017, 0.951057, 0, -0.951057, 0.309017, 1, 1.35076e-08, 4.1572e-08, 0, 0, 0)
+light_color = Color(1, 0.969181, 0.958909, 1)
+shadow_enabled = true
+
+[node name="Moon" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-4.37114e-08, -0.309017, -0.951057, 0, 0.951057, -0.309017, 1, -1.35076e-08, -4.1572e-08, 0, 0, 0)
+visible = false
+light_color = Color(0.0333941, 0.0311024, 0.0563117, 1)
+light_energy = 0.0
+shadow_enabled = true
+sky_mode = 1

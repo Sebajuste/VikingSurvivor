@@ -1,0 +1,63 @@
+[gd_scene load_steps=10 format=3 uid="uid://dev8qbspew7pv"]
+
+[ext_resource type="Material" uid="uid://cbh7d5mmbr1jc" path="res://assets/2d/textures/prototype/Dark/texture_01.material" id="1_leow2"]
+[ext_resource type="Script" path="res://core/effects/tests/ice_screen_test.gd" id="1_ukh24"]
+[ext_resource type="Material" uid="uid://r7i6k07ewoo2" path="res://assets/2d/textures/prototype/Red/texture_02.material" id="2_h1u7i"]
+[ext_resource type="PackedScene" uid="uid://cq3suak5lba4c" path="res://core/actors/lights/lamp01/scenes/lamp_01.tscn" id="3_0o2hq"]
+[ext_resource type="PackedScene" uid="uid://cghy2e36xb4ta" path="res://core/effects/scenes/ice_screen.tscn" id="4_1nlt8"]
+[ext_resource type="Environment" uid="uid://brd2qldg4r5mr" path="res://core/effects/resources/we_default.tres" id="5_knv5r"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_5yppn"]
+size = Vector3(100, 1, 100)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_85lkk"]
+size = Vector3(100, 1, 100)
+
+[sub_resource type="BoxMesh" id="BoxMesh_0cish"]
+
+[node name="IceScreenTest" type="Node3D"]
+script = ExtResource("1_ukh24")
+
+[node name="Ground" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+material_override = ExtResource("1_leow2")
+mesh = SubResource("BoxMesh_5yppn")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Ground"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground/StaticBody3D"]
+shape = SubResource("BoxShape3D_85lkk")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.72922, 0.5, 0)
+material_override = ExtResource("2_h1u7i")
+mesh = SubResource("BoxMesh_0cish")
+
+[node name="Lamp01" parent="." instance=ExtResource("3_0o2hq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.2795, 0, 0.517722)
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.907902, 0.419183, 0, -0.419183, 0.907902, 0, 3.91018, 6.82487)
+
+[node name="IceScreen" parent="." instance=ExtResource("4_1nlt8")]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = ExtResource("5_knv5r")
+
+[node name="GUI" type="CanvasLayer" parent="."]
+layer = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="GUI"]
+offset_right = 340.0
+offset_bottom = 180.0
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
+
+[node name="HSlider" type="HSlider" parent="GUI/MarginContainer"]
+layout_mode = 2
+max_value = 3.0
+step = 0.01
+
+[connection signal="value_changed" from="GUI/MarginContainer/HSlider" to="." method="_on_h_slider_value_changed"]

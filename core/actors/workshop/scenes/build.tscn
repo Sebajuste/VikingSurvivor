@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://dgeqewdhg0j2m"]
+
+[ext_resource type="PackedScene" uid="uid://dxvjeh5fqo1r7" path="res://core/actors/workshop/scenes/craft_abstract.tscn" id="1_6ky2d"]
+[ext_resource type="Script" path="res://core/actors/workshop/scripts/build_template.gd" id="1_htws0"]
+
+[node name="BuilderTemplate" instance=ExtResource("1_6ky2d")]
+script = ExtResource("1_htws0")
+build_model = null
+shape = null

@@ -1,0 +1,10 @@
+[gd_scene load_steps=4 format=3 uid="uid://c6ccyhxnvl0qn"]
+
+[ext_resource type="PackedScene" uid="uid://b6uqpi4suxb6s" path="res://addons/inventory/src/scenes/world_item.tscn" id="1_s5ajy"]
+[ext_resource type="Resource" uid="uid://br0jfc65uabml" path="res://data/items/stone.tres" id="2_nc6f7"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_2drrc"]
+
+[node name="WorldItemStone" instance=ExtResource("1_s5ajy")]
+shape = SubResource("SphereShape3D_2drrc")
+item = ExtResource("2_nc6f7")

@@ -1,0 +1,17 @@
+[gd_scene load_steps=6 format=3 uid="uid://d8phxsu1psbf"]
+
+[ext_resource type="PackedScene" uid="uid://dgeqewdhg0j2m" path="res://core/actors/workshop/scenes/build.tscn" id="1_tu8b4"]
+[ext_resource type="PackedScene" uid="uid://lyk88u5hp5yl" path="res://core/actors/workshop/scenes/workbench_workshop.tscn" id="2_enrfm"]
+[ext_resource type="PackedScene" uid="uid://dwckm8runs1w4" path="res://core/actors/items/scenes/workbench_template.tscn" id="3_3kmu4"]
+[ext_resource type="Resource" uid="uid://c0uijd4ulievv" path="res://data/recipes/recipe_workbench.tres" id="4_1j7jo"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_0rl15"]
+
+[node name="BuildTemplateWorkbench" type="Node3D"]
+
+[node name="BuilderTemplate" parent="." instance=ExtResource("1_tu8b4")]
+build_model = ExtResource("2_enrfm")
+shape = SubResource("SphereShape3D_0rl15")
+model = ExtResource("3_3kmu4")
+model_position_offset = Vector3(-3, 0, 1)
+build_recipe = ExtResource("4_1j7jo")

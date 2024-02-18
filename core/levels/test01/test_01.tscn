@@ -1,0 +1,78 @@
+[gd_scene load_steps=14 format=3 uid="uid://cn4yv7n4oy8rv"]
+
+[ext_resource type="Material" uid="uid://cbh7d5mmbr1jc" path="res://assets/2d/textures/prototype/Dark/texture_01.material" id="1_gi0ol"]
+[ext_resource type="PackedScene" uid="uid://dj6ki6fw1q6yo" path="res://core/miscs/camera_rig/scenes/camera_rig.tscn" id="2_6qlrb"]
+[ext_resource type="PackedScene" uid="uid://bf77txe6s0t6r" path="res://core/miscs/weather/scenes/rain.tscn" id="2_cibli"]
+[ext_resource type="PackedScene" uid="uid://bnpbxs21jgofd" path="res://core/miscs/weather/scenes/snow.tscn" id="3_7gqx2"]
+[ext_resource type="PackedScene" uid="uid://cqtd17afj0s44" path="res://core/miscs/weather_control/scenes/weather_control.tscn" id="4_es8hs"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_mt6ut"]
+size = Vector3(100, 1, 100)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_gnrbu"]
+size = Vector3(100, 1, 100)
+
+[sub_resource type="Gradient" id="Gradient_ju62v"]
+offsets = PackedFloat32Array(0, 0.00682594)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_t5brs"]
+gradient = SubResource("Gradient_ju62v")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_h6uy0"]
+emission_shape_offset = Vector3(0, 10, 0)
+emission_shape = 3
+emission_box_extents = Vector3(10, 0.5, 10)
+direction = Vector3(0, -1, 0)
+spread = 5.0
+initial_velocity_min = 15.0
+initial_velocity_max = 15.0
+color_initial_ramp = SubResource("GradientTexture1D_t5brs")
+collision_mode = 1
+collision_friction = 0.0
+collision_bounce = 0.05
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_yr87x"]
+
+[sub_resource type="Sky" id="Sky_7nxr6"]
+sky_material = SubResource("ProceduralSkyMaterial_yr87x")
+
+[sub_resource type="Environment" id="Environment_f7bxf"]
+background_mode = 2
+sky = SubResource("Sky_7nxr6")
+volumetric_fog_enabled = true
+
+[node name="Test01" type="Node3D"]
+
+[node name="Ground" type="MeshInstance3D" parent="."]
+material_override = ExtResource("1_gi0ol")
+mesh = SubResource("BoxMesh_mt6ut")
+
+[node name="GPUParticlesCollisionBox3D" type="GPUParticlesCollisionBox3D" parent="Ground"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4.5, 0)
+size = Vector3(100, 10, 100)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Ground"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground/StaticBody3D"]
+shape = SubResource("BoxShape3D_gnrbu")
+
+[node name="Rain" parent="." instance=ExtResource("2_cibli")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.9461, 6.57371, -5.8787)
+process_material = SubResource("ParticleProcessMaterial_h6uy0")
+
+[node name="Snow" parent="." instance=ExtResource("3_7gqx2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.4206, 0, 0)
+
+[node name="Sun" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.48664, 0.550924, -0.677985, 7.45058e-09, 0.776079, 0.630635, 0.873602, -0.306893, 0.377672, 0, 4.16103, 0)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_f7bxf")
+
+[node name="CameraRig" parent="." instance=ExtResource("2_6qlrb")]
+transform = Transform3D(1, 0, 0, 0, 0.908194, 0.418549, 0, -0.418549, 0.908194, 0, 1.7639, 4.2597)
+
+[node name="WeatherControl" parent="." node_paths=PackedStringArray("environement") instance=ExtResource("4_es8hs")]
+environement = NodePath("../WorldEnvironment")

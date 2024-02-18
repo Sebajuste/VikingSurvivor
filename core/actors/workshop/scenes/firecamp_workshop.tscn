@@ -1,0 +1,17 @@
+[gd_scene load_steps=5 format=3 uid="uid://dy4q8ab8udg72"]
+
+[ext_resource type="PackedScene" uid="uid://cg1yr1630i8r5" path="res://core/actors/workshop/scenes/workshop.tscn" id="1_61m27"]
+[ext_resource type="PackedScene" uid="uid://c1rs0dcr1e6eb" path="res://core/actors/items/scenes/campfire.tscn" id="2_ywici"]
+[ext_resource type="Resource" uid="uid://rcsvqqxm41n8" path="res://core/actors/workshop/resources/recipe_fire.tres" id="3_sfvul"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_11sdq"]
+
+[node name="WorkshopFireCamp" type="Node3D"]
+
+[node name="WorkshopFire" parent="." instance=ExtResource("1_61m27")]
+build_auto = true
+shape = SubResource("SphereShape3D_11sdq")
+model = ExtResource("2_ywici")
+show_progress = false
+build_recipe = ExtResource("3_sfvul")
+build_time = 60

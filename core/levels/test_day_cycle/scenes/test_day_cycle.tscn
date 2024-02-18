@@ -1,0 +1,58 @@
+[gd_scene load_steps=11 format=3 uid="uid://dem5m60hilkj8"]
+
+[ext_resource type="Material" uid="uid://cbh7d5mmbr1jc" path="res://assets/2d/textures/prototype/Dark/texture_01.material" id="1_masbh"]
+[ext_resource type="Material" uid="uid://r7i6k07ewoo2" path="res://assets/2d/textures/prototype/Red/texture_02.material" id="2_ejs1b"]
+[ext_resource type="PackedScene" uid="uid://bh5syuqkjy7cu" path="res://core/miscs/day_night_cycle/scenes/day_night_cycle.tscn" id="3_ihji5"]
+[ext_resource type="PackedScene" uid="uid://cq3suak5lba4c" path="res://core/actors/lights/lamp01/scenes/lamp_01.tscn" id="3_wy175"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_r5ctd"]
+size = Vector3(100, 1, 100)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_s4u5k"]
+size = Vector3(100, 1, 100)
+
+[sub_resource type="BoxMesh" id="BoxMesh_gbta2"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_2840k"]
+sky_top_color = Color(0.617978, 0.734347, 0.901322, 1)
+sky_horizon_color = Color(0.746358, 0.67374, 0.701332, 1)
+ground_bottom_color = Color(0.617978, 0.734347, 0.901322, 1)
+ground_horizon_color = Color(0.746358, 0.67374, 0.701332, 1)
+
+[sub_resource type="Sky" id="Sky_toufd"]
+sky_material = SubResource("ProceduralSkyMaterial_2840k")
+
+[sub_resource type="Environment" id="Environment_adauo"]
+background_mode = 2
+sky = SubResource("Sky_toufd")
+ambient_light_energy = 0.0
+volumetric_fog_albedo = Color(0.617978, 0.734347, 0.901322, 1)
+
+[node name="TestDayCycle" type="Node3D"]
+
+[node name="Ground" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+material_override = ExtResource("1_masbh")
+mesh = SubResource("BoxMesh_r5ctd")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Ground"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground/StaticBody3D"]
+shape = SubResource("BoxShape3D_s4u5k")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.72922, 0.5, 0)
+material_override = ExtResource("2_ejs1b")
+mesh = SubResource("BoxMesh_gbta2")
+
+[node name="Lamp01" parent="." instance=ExtResource("3_wy175")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.2795, 0, 0.517722)
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.907902, 0.419183, 0, -0.419183, 0.907902, 0, 3.91018, 6.82487)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_adauo")
+
+[node name="DayNightCycle" parent="." node_paths=PackedStringArray("environment") instance=ExtResource("3_ihji5")]
+environment = NodePath("../WorldEnvironment")

@@ -1,0 +1,14 @@
+[gd_scene load_steps=6 format=3 uid="uid://cqtd17afj0s44"]
+
+[ext_resource type="Script" path="res://core/miscs/weather_control/scripts/weather_control.gd" id="1_77inp"]
+[ext_resource type="FastNoiseLite" uid="uid://d318v66kuukao" path="res://core/miscs/weather_control/resources/temperature_noise.tres" id="2_xny2u"]
+[ext_resource type="Curve" uid="uid://cw6cg70nbslud" path="res://core/miscs/weather_control/resources/temperature_curve.tres" id="3_w4380"]
+[ext_resource type="FastNoiseLite" uid="uid://bvexwaspsaf1j" path="res://core/miscs/weather_control/resources/weather_noise.tres" id="4_tp71t"]
+[ext_resource type="Curve" uid="uid://dlgff7dvarap4" path="res://core/miscs/weather_control/resources/weather_curve.tres" id="5_0t0n2"]
+
+[node name="WeatherControl" type="Node" groups=["weather_controller"]]
+script = ExtResource("1_77inp")
+temperature_noise = ExtResource("2_xny2u")
+temperature_curve = ExtResource("3_w4380")
+weather_noise = ExtResource("4_tp71t")
+weather_curve = ExtResource("5_0t0n2")

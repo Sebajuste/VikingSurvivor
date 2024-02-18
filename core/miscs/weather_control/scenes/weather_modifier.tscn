@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://n8ins3kmeo7e"]
+
+[ext_resource type="Script" path="res://core/miscs/weather_control/scripts/weather_modifier.gd" id="1_e0u11"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_n2m0r"]
+radius = 5.76716
+
+[node name="WeatherModifier" type="Node3D"]
+script = ExtResource("1_e0u11")
+
+[node name="Area3D" type="Area3D" parent="."]
+collision_layer = 64
+collision_mask = 0
+input_ray_pickable = false
+monitoring = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("SphereShape3D_n2m0r")

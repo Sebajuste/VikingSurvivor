@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://bc1nx54yeb1iq"]
+
+[ext_resource type="Script" path="res://core/gui/scripts/gui_inventory_item.gd" id="1_mr741"]
+[ext_resource type="PackedScene" uid="uid://c7u0oqb1kws5g" path="res://core/gui/icons/scenes/item_icon.tscn" id="2_46e62"]
+
+[node name="Wood" type="HBoxContainer"]
+script = ExtResource("1_mr741")
+
+[node name="ItemIcon" parent="." instance=ExtResource("2_46e62")]
+layout_mode = 2
+
+[node name="Value" type="Label" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+vertical_alignment = 1

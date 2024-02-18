@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://w062iitol64h"]
+
+[ext_resource type="Material" uid="uid://dm1kohpcuna6r" path="res://core/miscs/ocean/resources/water.material" id="1_hc5aq"]
+[ext_resource type="Script" path="res://core/miscs/ocean/scripts/water.gd" id="2_aj1gi"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_0tiee"]
+size = Vector2(2048, 2048)
+subdivide_width = 512
+subdivide_depth = 512
+
+[node name="Water" type="MeshInstance3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 512, 5, 512)
+material_override = ExtResource("1_hc5aq")
+cast_shadow = 0
+mesh = SubResource("PlaneMesh_0tiee")
+script = ExtResource("2_aj1gi")

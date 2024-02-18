@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="GameItem" load_steps=3 format=3 uid="uid://tqaic3r8i5j6"]
+
+[ext_resource type="Script" path="res://addons/inventory/src/game_item.gd" id="1_3mek4"]
+[ext_resource type="PackedScene" uid="uid://s5rjauq0xh6w" path="res://assets/3d/wooden_plank/scene.gltf" id="1_ntfsl"]
+
+[resource]
+script = ExtResource("1_3mek4")
+name = "Planche"
+object_type = "wooden_plank"
+max_stack = 10
+quantity = 1
+properties = {}
+model = ExtResource("1_ntfsl")

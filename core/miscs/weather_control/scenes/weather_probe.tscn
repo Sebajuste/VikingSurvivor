@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://kcy7pjdq8l7h"]
+
+[ext_resource type="Script" path="res://core/miscs/weather_control/scripts/weather_probe.gd" id="1_yl242"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_t6qgp"]
+
+[node name="WeatherProbe" type="Node3D" groups=["weather_probe"]]
+script = ExtResource("1_yl242")
+
+[node name="Area3D" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 64
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("SphereShape3D_t6qgp")
+
+[connection signal="area_entered" from="Area3D" to="." method="_on_area_3d_area_entered"]
+[connection signal="area_exited" from="Area3D" to="." method="_on_area_3d_area_exited"]

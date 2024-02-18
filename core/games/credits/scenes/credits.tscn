@@ -1,0 +1,293 @@
+[gd_scene load_steps=20 format=3 uid="uid://nsln0ia81a6w"]
+
+[ext_resource type="Script" path="res://core/games/credits/scripts/credits.gd" id="1_4ehur"]
+[ext_resource type="PackedScene" uid="uid://w062iitol64h" path="res://core/miscs/ocean/scenes/water.tscn" id="2_c5xux"]
+[ext_resource type="AudioStream" uid="uid://cv8aj3gvhtbyr" path="res://assets/sounds/ocean_waves_crisp.wav" id="3_7rrr3"]
+[ext_resource type="PackedScene" uid="uid://bexwyjad7hq8q" path="res://core/actors/ships/scenes/drakkar.tscn" id="4_spugh"]
+[ext_resource type="PackedScene" uid="uid://j6566m1k03xg" path="res://core/actors/characters/scenes/actor_character_player.tscn" id="5_ika13"]
+[ext_resource type="PackedScene" uid="uid://dj6ki6fw1q6yo" path="res://core/miscs/camera_rig/scenes/camera_rig.tscn" id="6_dtact"]
+[ext_resource type="PackedScene" uid="uid://bh5syuqkjy7cu" path="res://core/miscs/day_night_cycle/scenes/day_night_cycle.tscn" id="7_5l4id"]
+[ext_resource type="PackedScene" uid="uid://cqtd17afj0s44" path="res://core/miscs/weather_control/scenes/weather_control.tscn" id="8_awp7u"]
+[ext_resource type="PackedScene" uid="uid://bf77txe6s0t6r" path="res://core/miscs/weather/scenes/rain.tscn" id="9_ch5qy"]
+[ext_resource type="PackedScene" uid="uid://bnpbxs21jgofd" path="res://core/miscs/weather/scenes/snow.tscn" id="10_20r0j"]
+[ext_resource type="Environment" uid="uid://brd2qldg4r5mr" path="res://core/effects/resources/we_default.tres" id="11_1fgav"]
+[ext_resource type="Script" path="res://core/miscs/loaders/scripts/music_loader.gd" id="12_qfn2p"]
+[ext_resource type="AudioStream" uid="uid://f8xou40yd1v2" path="res://assets/musics/credits.ogg" id="13_lhes7"]
+[ext_resource type="Theme" uid="uid://b8j47gvu61s0d" path="res://assets/themes/default.tres" id="15_oq6dj"]
+
+[sub_resource type="Animation" id="Animation_op4u4"]
+resource_name = "idle"
+length = 5.0
+loop_mode = 1
+tracks/0/type = "rotation_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, -0.026, 0, 0, 1, 2.6, 1, 0.026, 0, 0, 1)
+tracks/1/type = "rotation_3d"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = PackedFloat32Array(1.3, 1, -0.009, 0, -0.017, 1, 4.2, 1, -0.009, 0, 0.017, 1)
+
+[sub_resource type="Animation" id="Animation_ffu37"]
+resource_name = "storm"
+length = 5.0
+loop_mode = 1
+tracks/0/type = "rotation_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, -0.052, 0, 0, 0.999, 2.6, 1, 0.052, 0, 0, 0.999)
+tracks/1/type = "rotation_3d"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = PackedFloat32Array(1.3, 1, -0.009, 0, -0.035, 0.999, 4.2, 1, -0.009, 0, 0.035, 0.999)
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ffj8v"]
+_data = {
+"idle": SubResource("Animation_op4u4"),
+"storm": SubResource("Animation_ffu37")
+}
+
+[sub_resource type="Animation" id="Animation_mmy6x"]
+resource_name = "credits"
+length = 40.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("GUI/MarginContainer/CreditsList:theme_override_constants/margin_top")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2, 30),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0, 0, -1024]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("GUI:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 28.9, 30),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(40),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"change_level"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_x1dro"]
+_data = {
+"credits": SubResource("Animation_mmy6x")
+}
+
+[node name="Credits" type="Node3D"]
+script = ExtResource("1_4ehur")
+
+[node name="Water" parent="." instance=ExtResource("2_c5xux")]
+
+[node name="WaterEffect" type="AudioStreamPlayer" parent="Water"]
+stream = ExtResource("3_7rrr3")
+volume_db = -30.0
+autoplay = true
+bus = &"effects"
+
+[node name="Drakkar" parent="." instance=ExtResource("4_spugh")]
+transform = Transform3D(0.999967, -0.00809418, -7.28476e-05, 0.00807946, 0.997519, 0.0699304, -0.000493362, -0.0699287, 0.997552, 0, 7, 0)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Drakkar"]
+libraries = {
+"": SubResource("AnimationLibrary_ffj8v")
+}
+autoplay = "idle"
+
+[node name="ActorCharacterPlayer" parent="." instance=ExtResource("5_ika13")]
+transform = Transform3D(-0.898089, 0, -0.439814, 0, 1, 0, 0.439814, 0, -0.898089, -1.4584, 8.92576, -4.57635)
+
+[node name="CameraRig" parent="." instance=ExtResource("6_dtact")]
+transform = Transform3D(-0.999719, 0, -0.0237168, 0, 1, 0, 0.0237168, 0, -0.999719, 0, 24, -24.3915)
+spring_length = 10.0
+mode = "TopView"
+target_path = NodePath("../Drakkar")
+top_view_target_offset = Vector3(-6, 4, 5)
+top_view_view_offset = Vector3(-6.5, 3.5, -5)
+
+[node name="DayNightCycle" parent="." node_paths=PackedStringArray("environment") instance=ExtResource("7_5l4id")]
+environment = NodePath("../WorldEnvironment")
+start_time = 0.4
+running = false
+time = 0.8
+
+[node name="WeatherControl" parent="." node_paths=PackedStringArray("environement", "daynight_cycle") instance=ExtResource("8_awp7u")]
+environement = NodePath("../WorldEnvironment")
+daynight_cycle = NodePath("../DayNightCycle")
+rain_effect = ExtResource("9_ch5qy")
+snow_effect = ExtResource("10_20r0j")
+enabled = false
+temperature_index = 1.0
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = ExtResource("11_1fgav")
+
+[node name="MusicLoader" type="Node" parent="."]
+script = ExtResource("12_qfn2p")
+music = ExtResource("13_lhes7")
+play_as_next = false
+
+[node name="GUI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -313.0
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="GUI"]
+modulate = Color(0, 0, 0, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="GUI"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
+
+[node name="CreditsList" type="MarginContainer" parent="GUI/MarginContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_bottom = 32
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GUI/MarginContainer/CreditsList"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="GUI/MarginContainer/CreditsList/VBoxContainer"]
+custom_minimum_size = Vector2(0, 1200)
+layout_mode = 2
+theme_override_constants/margin_top = 800
+
+[node name="GameName" type="Label" parent="GUI/MarginContainer/CreditsList/VBoxContainer/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 2
+theme = ExtResource("15_oq6dj")
+text = "Viking Survivor"
+horizontal_alignment = 1
+vertical_alignment = 1
+uppercase = true
+
+[node name="Title" type="Label" parent="GUI/MarginContainer/CreditsList/VBoxContainer"]
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+size_flags_vertical = 0
+text = "PROGAMMEUR"
+horizontal_alignment = 1
+vertical_alignment = 1
+uppercase = true
+
+[node name="Person" type="Label" parent="GUI/MarginContainer/CreditsList/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+text = "Sebajuste"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Space" type="Control" parent="GUI/MarginContainer/CreditsList/VBoxContainer"]
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+
+[node name="Title2" type="Label" parent="GUI/MarginContainer/CreditsList/VBoxContainer"]
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+size_flags_vertical = 0
+text = "Musique"
+horizontal_alignment = 1
+vertical_alignment = 1
+uppercase = true
+
+[node name="Person2" type="Label" parent="GUI/MarginContainer/CreditsList/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+text = "HydroGene"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Space2" type="Control" parent="GUI/MarginContainer/CreditsList/VBoxContainer"]
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+
+[node name="Title3" type="Label" parent="GUI/MarginContainer/CreditsList/VBoxContainer"]
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+size_flags_vertical = 0
+text = "Remerciements"
+horizontal_alignment = 1
+vertical_alignment = 1
+uppercase = true
+
+[node name="Person3" type="Label" parent="GUI/MarginContainer/CreditsList/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+text = "Raphytator"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Person4" type="Label" parent="GUI/MarginContainer/CreditsList/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+text = "HydroGene"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Person5" type="Label" parent="GUI/MarginContainer/CreditsList/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+text = "GameCodeur"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_x1dro")
+}
+autoplay = "credits"
+
+[connection signal="damaged" from="ActorCharacterPlayer" to="." method="_on_actor_character_player_damaged"]
+
+[editable path="DayNightCycle"]

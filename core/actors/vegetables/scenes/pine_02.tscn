@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://bitu7bl6qft0c"]
+
+[ext_resource type="PackedScene" uid="uid://k1ay1yhotuk5" path="res://assets/3d/pine_tree/scene.gltf" id="1_fv6xw"]
+
+[node name="Pine02" type="Node3D"]
+
+[node name="Sketchfab_Scene" parent="." instance=ExtResource("1_fv6xw")]

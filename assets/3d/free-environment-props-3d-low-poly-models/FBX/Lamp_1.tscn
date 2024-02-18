@@ -1,0 +1,14 @@
+[gd_scene load_steps=4 format=3 uid="uid://dubnud5tu76d1"]
+
+[ext_resource type="PackedScene" uid="uid://lxhliurqlqoj" path="res://assets/3d/free-environment-props-3d-low-poly-models/FBX/Lamp_1.fbx" id="1_3o6vx"]
+[ext_resource type="Texture2D" uid="uid://b8n3jntcjgxjr" path="res://assets/3d/free-environment-props-3d-low-poly-models/Texture/Texture.png" id="2_bhbuc"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1ahob"]
+albedo_color = Color(0.780392, 0.780392, 0.780392, 1)
+albedo_texture = ExtResource("2_bhbuc")
+metallic = 0.4
+
+[node name="Lamp_1" instance=ExtResource("1_3o6vx")]
+
+[node name="Lamp_1" parent="RootNode" index="0"]
+surface_material_override/0 = SubResource("StandardMaterial3D_1ahob")

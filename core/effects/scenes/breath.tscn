@@ -1,0 +1,36 @@
+[gd_scene load_steps=9 format=3 uid="uid://qmotavgh7r51"]
+
+[ext_resource type="Shader" uid="uid://bg6fn00agygac" path="res://core/actors/items/resources/fire.tres" id="1_lmt2o"]
+[ext_resource type="Material" uid="uid://clqegc8adgxxa" path="res://core/effects/resources/particle_breath.material" id="2_j3mu7"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_eg126"]
+frequency = 0.0313
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_risyg"]
+noise = SubResource("FastNoiseLite_eg126")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_aqjp4"]
+frequency = 0.0002
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_geeov"]
+noise = SubResource("FastNoiseLite_aqjp4")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_tiw2f"]
+render_priority = 0
+shader = ExtResource("1_lmt2o")
+shader_parameter/DissolveTilling = Vector2(1, 1)
+shader_parameter/DissolveSpeed = null
+shader_parameter/Dissolve = 0.258
+shader_parameter/AlphaFilter = 0.945
+shader_parameter/FireTexture = SubResource("NoiseTexture2D_geeov")
+shader_parameter/DissolveTexture = SubResource("NoiseTexture2D_risyg")
+
+[sub_resource type="QuadMesh" id="QuadMesh_7kpet"]
+
+[node name="Breath" type="GPUParticles3D"]
+material_override = SubResource("ShaderMaterial_tiw2f")
+amount = 16
+lifetime = 2.0
+explosiveness = 0.62
+process_material = ExtResource("2_j3mu7")
+draw_pass_1 = SubResource("QuadMesh_7kpet")

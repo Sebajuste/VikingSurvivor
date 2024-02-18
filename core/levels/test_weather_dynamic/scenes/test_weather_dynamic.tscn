@@ -1,0 +1,267 @@
+[gd_scene load_steps=36 format=3 uid="uid://y2pjf7tdydw7"]
+
+[ext_resource type="Material" uid="uid://cbh7d5mmbr1jc" path="res://assets/2d/textures/prototype/Dark/texture_01.material" id="1_813w7"]
+[ext_resource type="Script" path="res://core/levels/test_weather_dynamic/scripts/test_weather_dynamic.gd" id="1_wqvy2"]
+[ext_resource type="PackedScene" uid="uid://cqtd17afj0s44" path="res://core/miscs/weather_control/scenes/weather_control.tscn" id="2_0lons"]
+[ext_resource type="PackedScene" uid="uid://bf77txe6s0t6r" path="res://core/miscs/weather/scenes/rain.tscn" id="3_mwgta"]
+[ext_resource type="PackedScene" uid="uid://bnpbxs21jgofd" path="res://core/miscs/weather/scenes/snow.tscn" id="4_da41y"]
+[ext_resource type="PackedScene" uid="uid://j6566m1k03xg" path="res://core/actors/characters/scenes/actor_character_player.tscn" id="4_ogt6g"]
+[ext_resource type="PackedScene" uid="uid://dj6ki6fw1q6yo" path="res://core/miscs/camera_rig/scenes/camera_rig.tscn" id="5_bof46"]
+[ext_resource type="PackedScene" uid="uid://bh5syuqkjy7cu" path="res://core/miscs/day_night_cycle/scenes/day_night_cycle.tscn" id="6_k1dgq"]
+[ext_resource type="PackedScene" uid="uid://wbe0p2ihsw3s" path="res://core/actors/characters/scenes/controller_character.tscn" id="7_al0qf"]
+[ext_resource type="PackedScene" uid="uid://cq3suak5lba4c" path="res://core/actors/lights/lamp01/scenes/lamp_01.tscn" id="7_jeyau"]
+[ext_resource type="PackedScene" uid="uid://dy4q8ab8udg72" path="res://core/actors/workshop/scenes/firecamp_workshop.tscn" id="11_fvtug"]
+[ext_resource type="Script" path="res://addons/proton_scatter/src/scatter.gd" id="12_v6va3"]
+[ext_resource type="Script" path="res://addons/proton_scatter/src/stack/modifier_stack.gd" id="13_58xw5"]
+[ext_resource type="Script" path="res://addons/proton_scatter/src/modifiers/create_inside_random.gd" id="14_6hu4y"]
+[ext_resource type="Script" path="res://addons/proton_scatter/src/modifiers/randomize_transforms.gd" id="15_c6tb0"]
+[ext_resource type="Script" path="res://addons/proton_scatter/src/modifiers/relax.gd" id="16_m7hwm"]
+[ext_resource type="Script" path="res://addons/proton_scatter/src/modifiers/project_on_geometry.gd" id="17_evwje"]
+[ext_resource type="Script" path="res://addons/proton_scatter/src/scatter_item.gd" id="18_334j2"]
+[ext_resource type="Script" path="res://addons/proton_scatter/src/scatter_shape.gd" id="19_j55qu"]
+[ext_resource type="Script" path="res://addons/proton_scatter/src/shapes/sphere_shape.gd" id="20_j5ktu"]
+[ext_resource type="Curve" uid="uid://cj85ta1rymfsq" path="res://core/miscs/weather_control/resources/day_night_curve.tres" id="22_sv8m6"]
+[ext_resource type="PackedScene" uid="uid://n8ins3kmeo7e" path="res://core/miscs/weather_control/scenes/weather_modifier.tscn" id="22_tld83"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_xpjc2"]
+size = Vector3(100, 1, 100)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_d4cdo"]
+size = Vector3(100, 1, 100)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_a5hkr"]
+radius = 5.0
+
+[sub_resource type="Curve" id="Curve_i3ysp"]
+_data = [Vector2(0, 1), 0.0, 1.15021e-06, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Resource" id="Resource_5bdpb"]
+script = ExtResource("14_6hu4y")
+amount = 75
+enabled = true
+override_global_seed = false
+custom_seed = 0
+restrict_height = true
+reference_frame = 1
+
+[sub_resource type="Resource" id="Resource_cbfdr"]
+script = ExtResource("15_c6tb0")
+position = Vector3(0.15, 0.15, 0.15)
+rotation = Vector3(20, 360, 20)
+scale = Vector3(0.1, 0.1, 0.1)
+enabled = true
+override_global_seed = false
+custom_seed = 0
+restrict_height = false
+reference_frame = 2
+
+[sub_resource type="Resource" id="Resource_5hfb2"]
+script = ExtResource("16_m7hwm")
+iterations = 3
+offset_step = 0.2
+consecutive_step_multiplier = 0.75
+use_computeshader = true
+enabled = true
+override_global_seed = false
+custom_seed = 0
+restrict_height = true
+reference_frame = 0
+
+[sub_resource type="Resource" id="Resource_843yc"]
+script = ExtResource("17_evwje")
+ray_direction = Vector3(0, -1, 0)
+ray_length = 5.0
+ray_offset = 5.0
+remove_points_on_miss = false
+align_with_collision_normal = false
+max_slope = 90.0
+collision_mask = 1
+exclude_mask = 0
+enabled = true
+override_global_seed = false
+custom_seed = 0
+restrict_height = false
+reference_frame = 0
+
+[sub_resource type="Resource" id="Resource_omsbk"]
+script = ExtResource("13_58xw5")
+stack = Array[Resource("res://addons/proton_scatter/src/modifiers/base_modifier.gd")]([SubResource("Resource_5bdpb"), SubResource("Resource_cbfdr"), SubResource("Resource_5hfb2"), SubResource("Resource_843yc")])
+
+[sub_resource type="Resource" id="Resource_g8bsm"]
+script = ExtResource("20_j5ktu")
+radius = 5.2279
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_mwxba"]
+
+[sub_resource type="Sky" id="Sky_0sl7q"]
+sky_material = SubResource("ProceduralSkyMaterial_mwxba")
+
+[sub_resource type="Environment" id="Environment_3ugpx"]
+background_mode = 2
+sky = SubResource("Sky_0sl7q")
+ambient_light_source = 3
+ssr_enabled = true
+glow_enabled = true
+glow_bloom = 0.09
+volumetric_fog_enabled = true
+
+[node name="TestWeatherDynamic" type="Node3D"]
+script = ExtResource("1_wqvy2")
+
+[node name="Ground" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+material_override = ExtResource("1_813w7")
+mesh = SubResource("BoxMesh_xpjc2")
+
+[node name="GPUParticlesCollisionBox3D" type="GPUParticlesCollisionBox3D" parent="Ground"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4.5, 0)
+size = Vector3(100, 10, 100)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Ground"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground/StaticBody3D"]
+shape = SubResource("BoxShape3D_d4cdo")
+
+[node name="Lamp01" parent="." instance=ExtResource("7_jeyau")]
+transform = Transform3D(0.696902, 0, -0.717166, 0, 1, 0, 0.717166, 0, 0.696902, -3.03486, 0, -2.26607)
+
+[node name="WeatherModifier" parent="Lamp01" instance=ExtResource("22_tld83")]
+transform = Transform3D(0.696902, 0, 0.717166, 0, 1, 0, -0.717166, 0, 0.696902, -0.173522, 0, 0.377405)
+shape = SubResource("SphereShape3D_a5hkr")
+temperature = 3.0
+temperature_distance = SubResource("Curve_i3ysp")
+
+[node name="WorkshopFire" parent="." instance=ExtResource("11_fvtug")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.8877, 0, -6.27219)
+
+[node name="ProtonScatterLog" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.1492, 0, 5.68488)
+script = ExtResource("12_v6va3")
+render_mode = 1
+modifier_stack = SubResource("Resource_omsbk")
+Performance/use_chunks = true
+Performance/chunk_dimensions = Vector3(15, 15, 15)
+
+[node name="ScatterItem" type="Node3D" parent="ProtonScatterLog"]
+script = ExtResource("18_334j2")
+path = "res://core/actors/items/scenes/world_item_log.tscn"
+
+[node name="ScatterShape" type="Node3D" parent="ProtonScatterLog"]
+transform = Transform3D(1, 0, -2.98023e-08, 0, 1, 0, 2.98023e-08, 0, 1, 0, 0, 0)
+script = ExtResource("19_j55qu")
+shape = SubResource("Resource_g8bsm")
+
+[node name="ActorCharacterPlayer" parent="." instance=ExtResource("4_ogt6g")]
+
+[node name="CameraRig" parent="." instance=ExtResource("5_bof46")]
+mode = "TPS"
+target_path = NodePath("../ActorCharacterPlayer")
+
+[node name="DayNightCycle" parent="." node_paths=PackedStringArray("environment") instance=ExtResource("6_k1dgq")]
+environment = NodePath("../WorldEnvironment")
+day_length = 120.0
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_3ugpx")
+
+[node name="ControllerCharacter" parent="." node_paths=PackedStringArray("character") instance=ExtResource("7_al0qf")]
+character = NodePath("../ActorCharacterPlayer")
+
+[node name="WeatherControl" parent="." node_paths=PackedStringArray("environement", "daynight_cycle") instance=ExtResource("2_0lons")]
+environement = NodePath("../WorldEnvironment")
+daynight_cycle = NodePath("../DayNightCycle")
+rain_effect = ExtResource("3_mwgta")
+snow_effect = ExtResource("4_da41y")
+temperature_day_nighy_curve = ExtResource("22_sv8m6")
+
+[node name="ReloadResourceTimer" type="Timer" parent="."]
+wait_time = 30.0
+autostart = true
+
+[node name="GUI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 351.0
+offset_bottom = 286.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GUI"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="WeatherControl" type="HBoxContainer" parent="GUI/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="GUI/VBoxContainer/WeatherControl"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+text = "Weather"
+
+[node name="WeatherSlider" type="HSlider" parent="GUI/VBoxContainer/WeatherControl"]
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = -1.0
+max_value = 1.0
+step = 0.01
+
+[node name="Value" type="Label" parent="GUI/VBoxContainer/WeatherControl"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+horizontal_alignment = 2
+
+[node name="TemperatureControl" type="HBoxContainer" parent="GUI/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="GUI/VBoxContainer/TemperatureControl"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+text = "Temperature"
+
+[node name="TemperatureSlider" type="HSlider" parent="GUI/VBoxContainer/TemperatureControl"]
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = -1.0
+max_value = 1.0
+step = 0.01
+
+[node name="Value" type="Label" parent="GUI/VBoxContainer/TemperatureControl"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+text = "-10°C"
+horizontal_alignment = 2
+
+[node name="CharacterTemperature" type="HBoxContainer" parent="GUI/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="GUI/VBoxContainer/CharacterTemperature"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+text = "Temperature"
+
+[node name="Value" type="Label" parent="GUI/VBoxContainer/CharacterTemperature"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+text = "-10°C"
+horizontal_alignment = 2
+
+[node name="CharacterHealth" type="HBoxContainer" parent="GUI/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="GUI/VBoxContainer/CharacterHealth"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+text = "Health"
+
+[node name="Value" type="Label" parent="GUI/VBoxContainer/CharacterHealth"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+text = "0"
+horizontal_alignment = 2
+
+[connection signal="timeout" from="ReloadResourceTimer" to="." method="_on_reload_resource_timer_timeout"]
+[connection signal="value_changed" from="GUI/VBoxContainer/WeatherControl/WeatherSlider" to="." method="_on_weather_slider_value_changed"]
+[connection signal="value_changed" from="GUI/VBoxContainer/TemperatureControl/TemperatureSlider" to="." method="_on_temperature_slider_value_changed"]

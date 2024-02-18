@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://bexwyjad7hq8q"]
+
+[ext_resource type="PackedScene" uid="uid://ckoeh0yiu74ys" path="res://assets/3d/viking_drakkar_long_boat_low-poly/scene.gltf" id="1_hc330"]
+
+[node name="Drakkar" type="Node3D"]
+
+[node name="Sketchfab_Scene" parent="." instance=ExtResource("1_hc330")]

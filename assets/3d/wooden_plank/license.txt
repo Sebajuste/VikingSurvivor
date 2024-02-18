@@ -1,0 +1,11 @@
+Model Information:
+* title:	Wooden Plank
+* source:	https://sketchfab.com/3d-models/wooden-plank-25e247b769e444c4be344e69106d32a7
+* author:	FranoW (https://sketchfab.com/FranoW)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Wooden Plank" (https://sketchfab.com/3d-models/wooden-plank-25e247b769e444c4be344e69106d32a7) by FranoW (https://sketchfab.com/FranoW) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

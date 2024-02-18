@@ -1,0 +1,67 @@
+[gd_scene load_steps=7 format=3 uid="uid://bbg2yy2s1p07k"]
+
+[ext_resource type="PackedScene" uid="uid://dr25rtk5o540p" path="res://core/actors/workshop/gui/gui_item_requirement.tscn" id="1_7jab3"]
+[ext_resource type="Script" path="res://core/actors/workshop/scripts/gui_recipe_requirements.gd" id="1_47pp5"]
+[ext_resource type="PackedScene" uid="uid://dfnm2oqocyy1u" path="res://core/actors/vegetables/scenes/log.tscn" id="3_06nes"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_bf5mp"]
+viewport_path = NodePath("Texture/SubViewport")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mim5q"]
+resource_local_to_scene = true
+transparency = 1
+no_depth_test = true
+shading_mode = 0
+albedo_texture = SubResource("ViewportTexture_bf5mp")
+disable_receive_shadows = true
+billboard_mode = 1
+
+[sub_resource type="QuadMesh" id="QuadMesh_j7c7i"]
+size = Vector2(2, 1)
+
+[node name="GUIRecipeRequirements" type="Node3D"]
+script = ExtResource("1_47pp5")
+
+[node name="Texture" type="MeshInstance3D" parent="."]
+material_override = SubResource("StandardMaterial3D_mim5q")
+mesh = SubResource("QuadMesh_j7c7i")
+
+[node name="SubViewport" type="SubViewport" parent="Texture"]
+disable_3d = true
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(200, 80)
+size_2d_override_stretch = true
+
+[node name="Control" type="Control" parent="Texture/SubViewport"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="Texture/SubViewport/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ItemList" type="HBoxContainer" parent="Texture/SubViewport/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="GUIItemRequirement" parent="Texture/SubViewport/Control/ItemList" instance=ExtResource("1_7jab3")]
+custom_minimum_size = Vector2(48, 0)
+layout_mode = 2
+require = 5
+quantity = 2
+item_scene = ExtResource("3_06nes")
