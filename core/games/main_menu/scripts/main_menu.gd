@@ -14,16 +14,11 @@ func _ready():
 	pass # Replace with function body.
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta):
+func _unhandled_input(event):
 	
-	pass
-
-"""
-func _on_start_timer_timeout():
-	gui_animation.play("fade_out_long")
-	pass # Replace with function body.
-"""
+	if event.is_action_pressed("ui_cancel") and cutscene.is_playing() and cutscene.current_animation == "start":
+		# Skip cutscene
+		change_level()
 
 func change_level():
 	LevelLoader.thread_load(first_level_path)

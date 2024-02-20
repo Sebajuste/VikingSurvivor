@@ -39,7 +39,6 @@ visible = false
 
 [node name="GUIRecipeRequirements" parent="." node_paths=PackedStringArray("craft") instance=ExtResource("3_q0ybi")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
-visible = false
 craft = NodePath("..")
 
 [node name="InventoryList" type="Node" parent="."]

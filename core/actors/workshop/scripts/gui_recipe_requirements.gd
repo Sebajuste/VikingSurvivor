@@ -38,3 +38,17 @@ func update():
 		
 	
 	pass
+
+func enable():
+	$AnimationPlayer.play("fade_out")
+	pass
+
+func disable():
+	$AnimationPlayer.play("fade_in")
+
+func _on_visibility_changed():
+	
+	if visible:
+		$AnimationPlayer.play("fade_out")
+	else:
+		$AnimationPlayer.play("fade_in")

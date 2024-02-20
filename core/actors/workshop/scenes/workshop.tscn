@@ -13,6 +13,9 @@ build_auto = false
 [node name="CollisionShape3D" parent="Area3D" index="0"]
 shape = SubResource("SphereShape3D_nh35e")
 
+[node name="CollisionShape3D" parent="PlayerDetection" index="0"]
+shape = SubResource("SphereShape3D_nh35e")
+
 [node name="RunningEffect" type="Node3D" parent="." index="3"]
 visible = false
 

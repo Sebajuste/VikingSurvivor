@@ -19,7 +19,7 @@ class_name Weather
 @export var weather_fog_max_density := 0.10
 @export_range(-1.0, 1.0) var weather_offset := 0.0
 
-const WEATHER_RAIN_THRESHOLD = 0.6
+const WEATHER_RAIN_THRESHOLD = 0.5
 const TEMPERATURE_SNOW_THRESHOLD := 1.0
 
 var temperature := 0.0
@@ -76,23 +76,30 @@ func _physics_process(_delta):
 	pass
 
 func process_values():
+	var temperature_daynight = 0.0
+	
 	if enabled:
 		
-		var temperature_daynight_offset = 0.0
 		if daynight_cycle and temperature_day_nighy_curve:
-			temperature_daynight_offset = temperature_day_nighy_curve.sample(daynight_cycle.time)
+			temperature_daynight = temperature_day_nighy_curve.sample(daynight_cycle.time)
 			pass
 		
-		temperature_index = clamp( temperature_offset + temperature_daynight_offset + (temperature_noise.get_noise_1d(_cursor) + 1.0) / 2.0, 0.0, 1.0)
+		temperature_index = clamp( temperature_offset + (temperature_noise.get_noise_1d(_cursor) + 1.0) / 2.0, 0.0, 1.0)
 		weather_index = clamp( weather_offset + (weather_noise.get_noise_1d(_cursor) + 1.0) / 2.0, 0.0, 1.0)
 	
-	temperature = temperature_curve.sample(temperature_index)
+	
+	temperature = clamp(temperature_curve.sample(temperature_index) + temperature_daynight, -15, 25)
+	
 	weather = weather_curve.sample(weather_index)
+	
+	# print("index: %0.02f, base temp: %0.02f, day temp: %0.02f, final: %0.02f -- weather_index: %0.02f, weather: %0.02f" % [temperature_index, temperature_curve.sample(temperature_index), temperature_daynight, temperature, weather_index, weather])
+	
+	
 
 func update_effetcts():
 	environement.environment.volumetric_fog_density = weather * weather_fog_max_density
 	
-	if weather > 0.6:
+	if weather > WEATHER_RAIN_THRESHOLD or temperature < -5.0:
 		
 		if not _rain_scene and temperature >= 0.0:
 			_rain_scene = rain_effect.instantiate()
@@ -101,14 +108,7 @@ func update_effetcts():
 		if not _snow_scene:
 			_snow_scene = snow_effect.instantiate()
 			get_parent().add_child(_snow_scene)
-		"""
-		if not _snow_scene and temperature < SNOW_THRESHOLD:
-			pass
 		
-		if _snow_scene and temperature > SNOW_THRESHOLD:
-			_snow_scene.queue_free()
-			_snow_scene = null
-		"""
 		if _rain_scene and temperature < 0.0:
 			_rain_scene.queue_free()
 			_rain_scene = null

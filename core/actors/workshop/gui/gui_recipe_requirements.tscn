@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://bbg2yy2s1p07k"]
+[gd_scene load_steps=10 format=3 uid="uid://bbg2yy2s1p07k"]
 
 [ext_resource type="PackedScene" uid="uid://dr25rtk5o540p" path="res://core/actors/workshop/gui/gui_item_requirement.tscn" id="1_7jab3"]
 [ext_resource type="Script" path="res://core/actors/workshop/scripts/gui_recipe_requirements.gd" id="1_47pp5"]
@@ -19,6 +19,68 @@ billboard_mode = 1
 [sub_resource type="QuadMesh" id="QuadMesh_j7c7i"]
 size = Vector2(2, 1)
 
+[sub_resource type="Animation" id="Animation_b27sb"]
+resource_name = "fade_out"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Texture/SubViewport/Control:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Texture:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_i3yju"]
+resource_name = "fade_in"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Texture/SubViewport/Control:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Texture:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.5),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_f2uhs"]
+_data = {
+"fade_in": SubResource("Animation_i3yju"),
+"fade_out": SubResource("Animation_b27sb")
+}
+
 [node name="GUIRecipeRequirements" type="Node3D"]
 script = ExtResource("1_47pp5")
 
@@ -34,6 +96,7 @@ size = Vector2i(200, 80)
 size_2d_override_stretch = true
 
 [node name="Control" type="Control" parent="Texture/SubViewport"]
+modulate = Color(1, 1, 1, 0)
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -65,3 +128,10 @@ layout_mode = 2
 require = 5
 quantity = 2
 item_scene = ExtResource("3_06nes")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_f2uhs")
+}
+
+[connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]

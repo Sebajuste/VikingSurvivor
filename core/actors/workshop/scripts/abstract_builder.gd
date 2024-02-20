@@ -104,10 +104,10 @@ func _on_inventory_list_changed():
 
 
 func _on_player_detection_body_entered(_body):
-	gui_recipe_requirement.visible  = true
+	gui_recipe_requirement.enable()
 	pass # Replace with function body.
 
 
 func _on_player_detection_body_exited(_body):
-	gui_recipe_requirement.visible = false
+	gui_recipe_requirement.disable()
 	pass # Replace with function body.

@@ -242,6 +242,7 @@ rain_effect = ExtResource("8_f874g")
 snow_effect = ExtResource("9_bem8h")
 enabled = false
 temperature_index = 1.0
+weather_index = 0.4
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = ExtResource("9_lxvdx")

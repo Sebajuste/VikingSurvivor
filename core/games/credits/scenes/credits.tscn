@@ -1,10 +1,9 @@
-[gd_scene load_steps=20 format=3 uid="uid://nsln0ia81a6w"]
+[gd_scene load_steps=19 format=3 uid="uid://nsln0ia81a6w"]
 
 [ext_resource type="Script" path="res://core/games/credits/scripts/credits.gd" id="1_4ehur"]
 [ext_resource type="PackedScene" uid="uid://w062iitol64h" path="res://core/miscs/ocean/scenes/water.tscn" id="2_c5xux"]
 [ext_resource type="AudioStream" uid="uid://cv8aj3gvhtbyr" path="res://assets/sounds/ocean_waves_crisp.wav" id="3_7rrr3"]
 [ext_resource type="PackedScene" uid="uid://bexwyjad7hq8q" path="res://core/actors/ships/scenes/drakkar.tscn" id="4_spugh"]
-[ext_resource type="PackedScene" uid="uid://j6566m1k03xg" path="res://core/actors/characters/scenes/actor_character_player.tscn" id="5_ika13"]
 [ext_resource type="PackedScene" uid="uid://dj6ki6fw1q6yo" path="res://core/miscs/camera_rig/scenes/camera_rig.tscn" id="6_dtact"]
 [ext_resource type="PackedScene" uid="uid://bh5syuqkjy7cu" path="res://core/miscs/day_night_cycle/scenes/day_night_cycle.tscn" id="7_5l4id"]
 [ext_resource type="PackedScene" uid="uid://cqtd17afj0s44" path="res://core/miscs/weather_control/scenes/weather_control.tscn" id="8_awp7u"]
@@ -100,6 +99,13 @@ tracks/2/keys = {
 "method": &"change_level"
 }]
 }
+tracks/3/type = "position_3d"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Drakkar")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = PackedFloat32Array(0, 1, 0, 7, 0, 40, 1, 0, 7, 150)
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_x1dro"]
 _data = {
@@ -115,7 +121,6 @@ script = ExtResource("1_4ehur")
 stream = ExtResource("3_7rrr3")
 volume_db = -30.0
 autoplay = true
-bus = &"effects"
 
 [node name="Drakkar" parent="." instance=ExtResource("4_spugh")]
 transform = Transform3D(0.999967, -0.00809418, -7.28476e-05, 0.00807946, 0.997519, 0.0699304, -0.000493362, -0.0699287, 0.997552, 0, 7, 0)
@@ -126,22 +131,18 @@ libraries = {
 }
 autoplay = "idle"
 
-[node name="ActorCharacterPlayer" parent="." instance=ExtResource("5_ika13")]
-transform = Transform3D(-0.898089, 0, -0.439814, 0, 1, 0, 0.439814, 0, -0.898089, -1.4584, 8.92576, -4.57635)
-
 [node name="CameraRig" parent="." instance=ExtResource("6_dtact")]
-transform = Transform3D(-0.999719, 0, -0.0237168, 0, 1, 0, 0.0237168, 0, -0.999719, 0, 24, -24.3915)
+transform = Transform3D(-0.999719, 0, -0.0237168, 0, 1, 0, 0.0237168, 0, -0.999719, -7.36394, 9.65461, -3.20112)
 spring_length = 10.0
 mode = "TopView"
-target_path = NodePath("../Drakkar")
+target_path = NodePath("")
 top_view_target_offset = Vector3(-6, 4, 5)
 top_view_view_offset = Vector3(-6.5, 3.5, -5)
 
 [node name="DayNightCycle" parent="." node_paths=PackedStringArray("environment") instance=ExtResource("7_5l4id")]
 environment = NodePath("../WorldEnvironment")
+day_length = 150.0
 start_time = 0.4
-running = false
-time = 0.8
 
 [node name="WeatherControl" parent="." node_paths=PackedStringArray("environement", "daynight_cycle") instance=ExtResource("8_awp7u")]
 environement = NodePath("../WorldEnvironment")
@@ -287,7 +288,5 @@ libraries = {
 "": SubResource("AnimationLibrary_x1dro")
 }
 autoplay = "credits"
-
-[connection signal="damaged" from="ActorCharacterPlayer" to="." method="_on_actor_character_player_damaged"]
 
 [editable path="DayNightCycle"]
