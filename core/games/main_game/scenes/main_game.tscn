@@ -222,7 +222,7 @@ custom_minimum_size = Vector2(120, 0)
 layout_mode = 2
 text = "Retour au jeu"
 
-[node name="Button" type="Button" parent="GUI/Menu/VBoxContainer/Control/VBoxContainer"]
+[node name="Options" type="Button" parent="GUI/Menu/VBoxContainer/Control/VBoxContainer"]
 layout_mode = 2
 text = "Options"
 
@@ -253,8 +253,8 @@ music = ExtResource("19_l63a7")
 [connection signal="died" from="Player" to="." method="_on_player_died"]
 [connection signal="pressed" from="GUI/EndGame/VBoxContainer/Control/HBoxContainer2/QuitterButton" to="." method="_on_quitter_button_pressed"]
 [connection signal="pressed" from="GUI/EndGame/VBoxContainer/Control/HBoxContainer2/RestartButton" to="." method="_on_restart_button_pressed"]
-[connection signal="pressed" from="GUI/Menu/VBoxContainer/Control/VBoxContainer/Close" to="." method="_on_back_menu_pressed"]
-[connection signal="pressed" from="GUI/Menu/VBoxContainer/Control/VBoxContainer/Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="GUI/Menu/VBoxContainer/Control/VBoxContainer/Close" to="." method="_on_close_pressed"]
+[connection signal="pressed" from="GUI/Menu/VBoxContainer/Control/VBoxContainer/Options" to="." method="_on_options_pressed"]
 [connection signal="pressed" from="GUI/Menu/VBoxContainer/Control/VBoxContainer/RestartButton" to="." method="_on_restart_button_pressed"]
 [connection signal="pressed" from="GUI/Menu/VBoxContainer/Control/VBoxContainer/BackMenu" to="." method="_on_back_menu_pressed"]
 [connection signal="pressed" from="GUI/Menu/VBoxContainer/Control/VBoxContainer/QuitterButton" to="." method="_on_quitter_button_pressed"]

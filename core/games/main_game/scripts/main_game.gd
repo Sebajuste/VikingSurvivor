@@ -68,20 +68,19 @@ func _on_close_pressed():
 	pass # Replace with function body.
 
 
-func _on_button_pressed():
+func _on_options_pressed():
 	gui_menu.visible = false
 	gui_options.visible = true
 	pass # Replace with function body.
 
-
-func _on_back_menu_pressed():
-	LevelLoader.thread_load("res://core/games/main_menu/scenes/main_menu.tscn")
+func _on_restart_button_pressed():
+	LevelLoader.thread_load("res://core/games/main_game/scenes/main_game.tscn")
 	gui_endgame.visible = false
 	gui_menu.visible = false
 	pass # Replace with function body.
 
-func _on_restart_button_pressed():
-	LevelLoader.thread_load("res://core/games/main_game/scenes/main_game.tscn")
+func _on_back_menu_pressed():
+	LevelLoader.thread_load("res://core/games/main_menu/scenes/main_menu.tscn")
 	gui_endgame.visible = false
 	gui_menu.visible = false
 	pass # Replace with function body.
