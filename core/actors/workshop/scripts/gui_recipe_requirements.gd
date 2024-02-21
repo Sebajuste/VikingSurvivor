@@ -5,14 +5,28 @@ const ITEM_SCENE = preload("res://core/actors/workshop/gui/gui_item_requirement.
 
 @export var craft : CraftAbstract
 
-@onready var item_list = $Texture/SubViewport/Control/ItemList
+@onready var item_list = $Texture/SubViewport/Control/Content/ItemList
+
+@onready var icon_keyboard = $Texture/SubViewport/Control/Content/IconKeyboard
+@onready var icon_xboxone = $Texture/SubViewport/Control/Content/IconXboxOne
+
+
+var activable := false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	
+	Controller.controller_changed.connect(_on_controller_changed)
+	
+	_on_controller_changed(Controller.type)
+	
 	pass # Replace with function body.
 
 
 func update():
+	
+	_on_controller_changed(Controller.type)
+	
 	if not craft:
 		return
 	
@@ -52,3 +66,21 @@ func _on_visibility_changed():
 		$AnimationPlayer.play("fade_out")
 	else:
 		$AnimationPlayer.play("fade_in")
+
+func _on_controller_changed(type):
+	
+	icon_keyboard.visible = false
+	icon_xboxone.visible = false
+	
+	if not activable:
+		return
+	
+	match type:
+		Controller.Type.MOUSE_KEYBOARD:
+			icon_keyboard.visible = true
+		Controller.Type.GAMEPAD:
+			icon_xboxone.visible = true
+		_:
+			pass
+	
+	pass

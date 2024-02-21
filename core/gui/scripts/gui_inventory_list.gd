@@ -8,6 +8,7 @@ const ITEM_SCENE = preload("res://core/gui/scenes/gui_inventory_item.tscn")
 		inventory = value
 
 @onready var item_list = $ItemList
+@onready var animation = $AnimationPlayer
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -17,11 +18,9 @@ func _ready():
 
 func _update_inventory(old_inventory: Inventory, new_inventory: Inventory):
 	
-	# TODO : remove old callback
 	if old_inventory:
 		old_inventory.disconnect("changed", _on_inventory_changed)
 	
-	# TODO : add new callback
 	if new_inventory:
 		new_inventory.connect("changed", _on_inventory_changed)
 	
@@ -32,7 +31,8 @@ func rebuild():
 		item.queue_free()
 	
 	if not inventory:
-		self.visible = false
+		if self.visible: 
+			animation.play("fade_in")
 		return
 	
 	for slot_id in inventory.size():
@@ -41,7 +41,12 @@ func rebuild():
 		item_list.add_child(gui_item)
 		gui_item.set_item(item)
 	
-	self.visible = not inventory.is_empty()
+	if inventory.is_empty():
+		if self.visible:
+			animation.play("fade_in")
+	else:
+		if not self.visible:
+			animation.play("fade_out")
 	
 
 func _on_inventory_changed():

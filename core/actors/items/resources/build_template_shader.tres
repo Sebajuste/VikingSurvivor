@@ -53,6 +53,7 @@ void fragment() {
 
 }
 "
+graph_offset = Vector2(-133.848, 100.367)
 flags/depth_prepass_alpha = true
 nodes/fragment/0/position = Vector2(700, 780)
 nodes/fragment/4/node = SubResource("VisualShaderNodeFloatConstant_ksoel")

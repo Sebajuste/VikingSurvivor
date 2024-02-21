@@ -50,8 +50,29 @@ func use(actor: ActorCharacter):
 	if running:
 		stop()
 	else:
-		fill(actor)
+		if is_fillable(actor):
+			fill(actor)
 		start()
+
+func is_fillable(user: ActorCharacter) -> bool:
+	if not build_recipe:
+		return false
+	for input in build_recipe.inputs:
+		var amount_required = max(0, input.quantity)
+		var local_slot_id = inventory.find_item(input.item)
+		if local_slot_id != -1:
+			var local_item = inventory.get_item(local_slot_id)
+			amount_required = max(0, input.quantity - local_item.quantity)
+		
+		if amount_required > 0:
+			var user_slot_id = user.inventory.find_item(input.item)
+			if user_slot_id != -1:
+				var user_item = user.inventory.get_item(user_slot_id)
+				if user_item.quantity < amount_required:
+					return false
+			else:
+				return false
+	return true
 
 func fill(user: ActorCharacter):
 	if not build_recipe:
@@ -99,15 +120,20 @@ func _on_timer_timeout():
 
 
 func _on_inventory_list_changed():
+	gui_recipe_requirement.activable = has_inputs_requirement()
 	gui_recipe_requirement.update()
 	pass # Replace with function body.
 
 
-func _on_player_detection_body_entered(_body):
+func _on_player_detection_body_entered(body):
 	gui_recipe_requirement.enable()
+	print("is_fillable(body) ", is_fillable(body))
+	gui_recipe_requirement.activable = has_inputs_requirement() or is_fillable(body)
+	gui_recipe_requirement.update()
 	pass # Replace with function body.
 
 
-func _on_player_detection_body_exited(_body):
+func _on_player_detection_body_exited(body):
 	gui_recipe_requirement.disable()
+	#gui_recipe_requirement.activable = has_inputs_requirement() or is_fillable(body)
 	pass # Replace with function body.
