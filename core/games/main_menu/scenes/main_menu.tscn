@@ -311,10 +311,13 @@ alignment = 1
 
 [node name="Play" type="Button" parent="GUI/MarginContainer/VBoxContainer"]
 layout_mode = 2
+focus_neighbor_bottom = NodePath("../Options")
 text = "JOUER"
 
 [node name="Options" type="Button" parent="GUI/MarginContainer/VBoxContainer"]
 layout_mode = 2
+focus_neighbor_top = NodePath("../Play")
+focus_neighbor_bottom = NodePath("../Quit")
 text = "OPTIONS"
 
 [node name="Quit" type="Button" parent="GUI/MarginContainer/VBoxContainer"]

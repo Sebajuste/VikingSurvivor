@@ -11,6 +11,8 @@ func _ready():
 	
 	$DayNightCycle.time = 0.8
 	
+	$GUI/MarginContainer/VBoxContainer/Play.grab_focus()
+	
 	pass # Replace with function body.
 
 

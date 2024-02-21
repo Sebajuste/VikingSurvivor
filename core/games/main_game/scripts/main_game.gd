@@ -37,6 +37,8 @@ func _unhandled_input(event):
 	if event.is_action_pressed("ui_cancel"):
 		if not gui_endgame.visible:
 			gui_menu.visible = not gui_menu.visible
+			if gui_menu.visible:
+				gui_menu.get_node("VBoxContainer/Control/VBoxContainer/Close").grab_focus()
 		else:
 			gui_menu.visible = false
 	

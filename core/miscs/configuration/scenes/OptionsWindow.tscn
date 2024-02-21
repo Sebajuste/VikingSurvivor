@@ -21,6 +21,7 @@ layout_mode = 2
 [node name="TabContainer" type="TabContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
+focus_neighbor_bottom = NodePath("../Footer/HBoxContainer3/CloseButton")
 
 [node name="Display" type="Control" parent="MarginContainer/VBoxContainer/TabContainer"]
 layout_mode = 2
@@ -81,6 +82,7 @@ alignment = 1
 
 [node name="SaveButton" type="Button" parent="MarginContainer/VBoxContainer/Footer/HBoxContainer2"]
 layout_mode = 2
+focus_neighbor_right = NodePath("../../HBoxContainer3/CloseButton")
 text = "btn_save"
 
 [node name="HBoxContainer3" type="HBoxContainer" parent="MarginContainer/VBoxContainer/Footer"]
@@ -90,8 +92,10 @@ alignment = 1
 
 [node name="CloseButton" type="Button" parent="MarginContainer/VBoxContainer/Footer/HBoxContainer3"]
 layout_mode = 2
+focus_neighbor_left = NodePath("../../HBoxContainer2/SaveButton")
 text = "btn_close"
 
+[connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Footer/HBoxContainer/RestoreDefaultButton" to="." method="_on_RestoreDefaultButton_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Footer/HBoxContainer2/SaveButton" to="." method="_on_SaveButton_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Footer/HBoxContainer3/CloseButton" to="." method="_on_CloseButton_pressed"]
